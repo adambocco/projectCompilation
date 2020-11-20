@@ -1,12 +1,15 @@
 {
-  "name": "webpack-template-bootstrap",
+  "name": "project-2---api-mashup-web-application-adambocco",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "start": "node ./bin/www",
+    "devstart": "nodemon .bin/www",
+    "serverstart": "DEBUG=library:* npm run devstart"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +21,7 @@
     "jquery": "^3.5.1",
     "mini-css-extract-plugin": "^1.1.2",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.6",
     "popper.js": "^1.16.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^10.0.4",
@@ -29,6 +33,14 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "axios": "^0.21.0",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "async": "^3.2.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.10.15",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
   }
 }
