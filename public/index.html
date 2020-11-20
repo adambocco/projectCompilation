@@ -9,9 +9,42 @@
 </head>
 
 <body>
-    <h1 class="bg-primary text-light text-center">API Mash-Up Project</h1>
 
-    <script src="./build/js/app.js"></script>
+    <header>
+
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <button type="button" id="loadPolitics" class="btn btn-primary">Load politics</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+
+    <!-- Start Scripts -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./build/js/app.js"></script>	
+    <script src="../src/js/mapdata.js"></script>
+    <script src="../src/js/usmap.js"></script>
+    <script src="../src/js/select.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="../src/js/redblue.js"></script>
+
+<button onclick="loadClient()">load</button>
+<button onclick="execute()">execute</button>
+    <!-- End Scripts -->
 </body>
 
 </html>
