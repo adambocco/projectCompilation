@@ -5,13 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./build/css/app.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
     <title>API Mash-Up Project</title>
 </head>
 
 <body>
 
     <header>
+        <nav class="navbar fixed-top navbar-toggleable-sm bg-primary navbar-inverse">
+            <div class="container">
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <div class="navbar-nav">
 
+                    </div>
+                </div>
+            </div>
+
+        </nav>
     </header>
     <main>
         <div class="container">
@@ -24,7 +39,28 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <button type="button" id="loadPolitics" class="btn btn-primary">Load politics</button>
+                    <form action="">
+                        <h1 class='text-center'>
+                            Select States to Compare
+                        </h1>
+                        <fieldset>
+                            <legend>
+                                Comparison Parameters
+                            </legend>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="" id="">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div id="selectedStates" class="border">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,17 +70,19 @@
     </footer>
 
     <!-- Start Scripts -->
+    <script src="https://use.fontawesome.com/c3b925f99e.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./build/js/app.js"></script>	
     <script src="../src/js/mapdata.js"></script>
     <script src="../src/js/usmap.js"></script>
     <script src="../src/js/select.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <!-- <script src="https://apis.google.com/js/api.js"></script> -->
     <script src="../src/js/redblue.js"></script>
+    <script src="../src/js/addStates.js"></script>
 
-<button onclick="loadClient()">load</button>
-<button onclick="execute()">execute</button>
-    <!-- End Scripts -->
+
 </body>
 
 </html>
+
+

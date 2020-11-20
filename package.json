@@ -27,6 +27,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "axios": "^0.21.0"
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "axios": "^0.21.0",
+    "font-awesome": "^4.7.0"
   }
 }

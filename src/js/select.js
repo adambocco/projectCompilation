@@ -49,7 +49,7 @@
         if (index > -1){ //deselect state
           selected.splice(index, 1);   
           check_mapdata(state);
-          map.mapdata.state_specific[state].color=original_mapdata.state_specific[state].color;
+          map.mapdata.state_specific[state].color=colorArray[state];
         }    
         done(state);
     }
@@ -66,7 +66,7 @@
       if (index < 0){ //make sure a state is selectedable
         check_mapdata(state);
         check_max();
-        // map.mapdata.state_specific[state].color=me.selected_color;
+        map.mapdata.state_specific[state].color=me.selected_color;
         selected.push(state);
         done(state);
       }      
