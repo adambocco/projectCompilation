@@ -6,9 +6,17 @@ var StateSchema = new Schema(
   {
     shortName: {type: String, required: true, maxlength: 100},
     longName: {type: String, required: true, maxlength: 100},
-    covidDeath: {type: String, required: true, maxlength: 30},
+    population : {type: Number, required: true},
+    populationDensity : {type: Number, required: true},
+    death: {type: Number, required: true},
+    positive: {type: String, required: true, maxlength: 30},
     governor: {type: String, required:true, maxlength: 100},
-    governorParty: {type:String, required:true, enum: ['D','R','I','Other'], default:'Other'}
+    senator1: {type: String, required:true, maxlength: 100},
+    senator2: {type: String, required:true, maxlength: 100},
+    governorParty: {type:String, required:true, enum: ['D','R','I','Other'], default:'Other'},
+    senator1Party: {type:String, required:true, enum: ['D','R','I','Other'], default:'Other'},
+    senator2Party: {type:String, required:true, enum: ['D','R','I','Other'], default:'Other'},
+    partyScore: {type:Number, required:true}
   }
 );
 
