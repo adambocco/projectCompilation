@@ -1,4 +1,4 @@
-
+console.log("REDBLUE LOADED")
 const loadPolitics = document.getElementById("loadPolitics");
 let stateNames = simplemaps_usmap.mapinfo.names;
 let stateNamesRev = swap(stateNames);

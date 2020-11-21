@@ -1,3 +1,5 @@
+console.log("USMAP LOADED")
+
 /*Copyright 2010-2019 Simplemaps.com
 html5usmapv4.01
 Use pursuant to license agreement at https://simplemaps.com/license */

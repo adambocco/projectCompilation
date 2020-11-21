@@ -17,7 +17,7 @@ module.exports = {
     mode: 'development', //production, development
 
     // Entry points are the main javascript file for each page.
-    entry: resolveAppPath('src/js/app.js'),
+    entry:resolveAppPath('src/js/app.js'),
 
     // Directory to place our output
     output: {

@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  link(rel="stylesheet" href="./build/css/app.css")
+  div(class="container text-center")
+    h1 Covid and Politicsssss
+    p Welcome to #{title}
+  div(class="container text-center")
+    div(class="row")
+      div(class="col border")
+        div(id='map' class="m-auto")
+    div(class="row")
+      div(class="col")
+        div(id='selectedStates')
+  
+  script(src="./build/js/app.js")
+  script(src="./js/mapdata.js")
+  script(src="./js/usmap.js")
+  script(src="./js/select.js")
+  script(src="./js/redblue.js")
+  script(src="./js/addStates.js")
+

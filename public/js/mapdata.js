@@ -1,3 +1,5 @@
+console.log("MAPDATA LOADED")
+
 var simplemaps_usmap_mapdata={
   main_settings: {
     //General settings
@@ -12,7 +14,7 @@ var simplemaps_usmap_mapdata={
     state_hover_color: "#3B729F",
     state_url: "",
     border_size: 1.5,
-    border_color: "#ffffff",
+    border_color: "#111",
     all_states_inactive: "no",
     all_states_zoomable: "no",
     
@@ -336,7 +338,7 @@ var simplemaps_usmap_mapdata={
     NE: {
       name: "Nebraska",
       description: "default",
-      color: "black",
+      color: "default",
       hover_color: "default",
       url: "default"
     },
@@ -473,23 +475,23 @@ var simplemaps_usmap_mapdata={
     }
   },
   locations: {
-    "0": {
-      name: "New York",
-      lat: 40.71,
-      lng: -74,
-      description: "default",
-      color: "default",
-      url: "default",
-      type: "default",
-      size: "default"
-    },
-    "1": {
-      name: "Anchorage",
-      lat: 61.2180556,
-      lng: -149.9002778,
-      color: "default",
-      type: "circle"
-    }
+    // "0": {
+    //   name: "New York",
+    //   lat: 40.71,
+    //   lng: -74,
+    //   description: "default",
+    //   color: "default",
+    //   url: "default",
+    //   type: "default",
+    //   size: "default"
+    // },
+    // "1": {
+    //   name: "Anchorage",
+    //   lat: 61.2180556,
+    //   lng: -149.9002778,
+    //   color: "default",
+    //   type: "circle"
+    // }
   },
   labels: {
     NH: {

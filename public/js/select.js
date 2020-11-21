@@ -1,6 +1,4 @@
-/* Copyright 2017, Chris Youderian, SimpleMaps, http://simplemaps.com
- Released under MIT license - https://opensource.org/licenses/MIT 
- */ 
+
 (function(plugin){
   
   //Start helper functions

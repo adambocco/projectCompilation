@@ -1,5 +1,5 @@
 
-
+console.log("ADDSTATE LOADED")
 simplemaps_usmap.hooks.click_state = function(id) {
     if (document.getElementById(id) !== null) {
         document.getElementById(id).remove();
