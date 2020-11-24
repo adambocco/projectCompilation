@@ -89,17 +89,12 @@ let senator2Parties = {};
 
 
 
-const run = async function() {
+(async function() {
     try {
         let covid1 = await axios.get("https://api.covidtracking.com/v1/states/current.json");
         covid1.data.forEach((value)=> {
             covidData[value.state] = value;
         })
-    } catch(err) {
-        console.log(err)
-    }
-    try {
-        let covid2 = await axios.get("https://api.covidtracking.com/v1/us/current.json");
     } catch(err) {console.log(err)}
     try {
         let census = await axios.get('https://api.census.gov/data/2019/pep/population?get=DATE_DESC,DENSITY,POP,NAME,STATE&for=state');
@@ -124,11 +119,7 @@ const run = async function() {
             mongoose.connection.close();
 
         });
-
-
-
-}
-run()
+})()
 
 const forLoop = async () => {
     for (let i = 0; i < stateKeys.length; i++) {
@@ -150,7 +141,7 @@ const forLoop = async () => {
 
 
                 stateData[value] = [value, stateNames[value], populationData[value][2], populationData[value][1], covidData[value].death,
-                covidData[value].positive, governors[value], senators1[value], senators2[value], governorParties[value], senator1Parties[value], senator2Parties[value], stateParties[value]];
+                covidData[value].positive, covidData[value].total, covidData[value].positiveIncrease, covidData[value].deathIncrease, governors[value], senators1[value], senators2[value], governorParties[value], senator1Parties[value], senator2Parties[value], stateParties[value]];
                 createStateFunctions[value] = callback => {
                     stateCreate(...stateData[value], callback)
                 };
@@ -161,7 +152,7 @@ const forLoop = async () => {
 }
 
 
-function stateCreate(shortName, longName, population, populationDensity, death, positive, governor, senator1, senator2, governorParty, senator1Party, senator2Party, partyScore, cb) {
+function stateCreate(shortName, longName, population, populationDensity, death, positive, totalTests, positiveIncrease, deathIncrease, governor, senator1, senator2, governorParty, senator1Party, senator2Party, partyScore, cb) {
     console.log(populationDensity)
     let stateDetail = {
         shortName: shortName,
@@ -170,6 +161,9 @@ function stateCreate(shortName, longName, population, populationDensity, death, 
         populationDensity: populationDensity,
         death: death,
         positive: positive,
+        totalTests: totalTests,
+        positiveIncrease: positiveIncrease,
+        deathIncrease: deathIncrease,
         governor: governor,
         senator1: senator1,
         senator2: senator2,

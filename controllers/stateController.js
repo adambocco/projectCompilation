@@ -1,8 +1,23 @@
+const mongoose = require('mongoose');
 const State = require('../models/state');
+const mongoDB = 'mongodb+srv://adambocco:csc443@cluster0.mbyvv.mongodb.net/apimashup?retryWrites=true&w=majority'
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+console.log(State)
 
 // Display list of all Authors.
 exports.state_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Author list');
+    console.log("CONTROLLER CALLED")
+    State.find({}, (err, states)=> {
+        if (err) {console.log(err)}
+        else {
+            console.log("STATES: ", states)
+            res.json(states);
+        }
+    })
 };
 
 // Display detail page for a specific Author.

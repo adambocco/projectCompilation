@@ -1,4 +1,3 @@
-
 (function(plugin){
   
   //Start helper functions
@@ -21,7 +20,7 @@
     return {
       map: false,
       on_shift: false,
-      selected_color: false,      
+      selected_color: '#9f9',      
     }
   }()  
     
@@ -47,7 +46,7 @@
         if (index > -1){ //deselect state
           selected.splice(index, 1);   
           check_mapdata(state);
-          map.mapdata.state_specific[state].color=colorArray[state];
+          map.mapdata.state_specific[state].color=currentColorArray[state];
         }    
         done(state);
     }

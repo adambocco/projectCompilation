@@ -1,114 +1,1868 @@
-This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true
-importing axios
-IMPORted axios
-BOUTA COVID
-COVID ALL STATES
-COVID UNITED STATES
-CENSUS INFO
-Population: 731545Deaths: 101
-Population: 4903185Deaths: 3451
-Population: 3017804Deaths: 2321
-Population: 7278717Deaths: 6427
-Population: 39512223Deaths: 18557
-Population: 5758736Deaths: 2355
-Population: 3565287Deaths: 4828
-Population: 973764Deaths: 746
-Population: 21477737Deaths: 18110
-Population: 10617423Deaths: 9142
-Population: 1415872Deaths: 224
-Population: 3155070Deaths: 2133
-Population: 1787065Deaths: 835
-Population: 12671821Deaths: 11795
-Population: 6732219Deaths: 5206
-Population: 2913314Deaths: 1410
-Population: 4467673Deaths: 1762
-Population: 4648794Deaths: 6233
-Population: 6892503Deaths: 10469
-Population: 6045680Deaths: 4398
-Population: 1344212Deaths: 173
-Population: 9986857Deaths: 8774
-Population: 5639632Deaths: 3150
-Population: 6137428Deaths: 3537
-Population: 2976149Deaths: 3642
-Population: 1068778Deaths: 567
-Population: 10488084Deaths: 4979
-Population: 762062Deaths: 673
-Population: 1934408Deaths: 854
-Population: 1359711Deaths: 507
-Population: 8882190Deaths: 16712
-Population: 2096829Deaths: 1325
-Population: 3080156Deaths: 1982
-Population: 19453561Deaths: 26292
-Population: 11689100Deaths: 5955
-Population: 3956971Deaths: 1603
-Population: 4217737Deaths: 812
-Population: 12801989Deaths: 9689
-Population: 1059361Deaths: 1294
-Population: 5148714Deaths: 4231
-Population: 884659Deaths: 741
-Population: 6829174Deaths: 4202
-Population: 28995881Deaths: 20296
-Population: 3205958Deaths: 773
-Population: 8535519Deaths: 3912
-Population: 623989Deaths: 62
-Population: 7614893Deaths: 2603
-Population: 5822434Deaths: 3091
-Population: 1792147Deaths: 639
-Population: 578759Deaths: 176
-State Parties:  {}
-Governor Parties:  {}
-Create States Called
-Create states array called
-CALLING CREATE STATE FUNCTION
-CREATING STATE!! AK Alaska
-CREATED STATE OBJECT
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
-GOOGLE CIVICS SUCCESS
+Error: Request failed with status code 404
+    at createError (/mnt/c/Users/User/Desktop/SCSU_FALL_2020/CSC443/VSC/project-2---api-mashup-web-application-adambocco/node_modules/axios/lib/core/createError.js:16:15)
+    at settle (/mnt/c/Users/User/Desktop/SCSU_FALL_2020/CSC443/VSC/project-2---api-mashup-web-application-adambocco/node_modules/axios/lib/core/settle.js:17:12)
+    at IncomingMessage.handleStreamEnd (/mnt/c/Users/User/Desktop/SCSU_FALL_2020/CSC443/VSC/project-2---api-mashup-web-application-adambocco/node_modules/axios/lib/adapters/http.js:244:11)
+    at IncomingMessage.emit (events.js:326:22)
+    at endReadableNT (_stream_readable.js:1223:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21) {
+  config: {
+    url: 'https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+    method: 'get',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': 'axios/0.21.0'
+    },
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    adapter: [Function: httpAdapter],
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    validateStatus: [Function: validateStatus],
+    data: undefined
+  },
+  request: ClientRequest {
+    _events: [Object: null prototype] {
+      socket: [Function],
+      abort: [Function],
+      aborted: [Function],
+      connect: [Function],
+      error: [Function],
+      timeout: [Function],
+      prefinish: [Function: requestOnPrefinish]
+    },
+    _eventsCount: 7,
+    _maxListeners: undefined,
+    outputData: [],
+    outputSize: 0,
+    writable: true,
+    _last: true,
+    chunkedEncoding: false,
+    shouldKeepAlive: false,
+    useChunkedEncodingByDefault: false,
+    sendDate: false,
+    _removedConnection: false,
+    _removedContLen: false,
+    _removedTE: false,
+    _contentLength: 0,
+    _hasBody: true,
+    _trailer: '',
+    finished: true,
+    _headerSent: true,
+    socket: TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: true,
+      _SNICallback: null,
+      servername: 'civicinfo.googleapis.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 10,
+      connecting: false,
+      _hadError: false,
+      _parent: null,
+      _host: 'civicinfo.googleapis.com',
+      _readableState: [ReadableState],
+      readable: true,
+      _maxListeners: undefined,
+      _writableState: [WritableState],
+      writable: false,
+      allowHalfOpen: false,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: [TLSWrap],
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      parser: null,
+      _httpMessage: [Circular],
+      [Symbol(res)]: [TLSWrap],
+      [Symbol(verified)]: true,
+      [Symbol(pendingSession)]: null,
+      [Symbol(asyncId)]: 296,
+      [Symbol(kHandle)]: [TLSWrap],
+      [Symbol(kSetNoDelay)]: false,
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesRead)]: 0,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(connect-options)]: [Object]
+    },
+    connection: TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: true,
+      _SNICallback: null,
+      servername: 'civicinfo.googleapis.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 10,
+      connecting: false,
+      _hadError: false,
+      _parent: null,
+      _host: 'civicinfo.googleapis.com',
+      _readableState: [ReadableState],
+      readable: true,
+      _maxListeners: undefined,
+      _writableState: [WritableState],
+      writable: false,
+      allowHalfOpen: false,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: [TLSWrap],
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      parser: null,
+      _httpMessage: [Circular],
+      [Symbol(res)]: [TLSWrap],
+      [Symbol(verified)]: true,
+      [Symbol(pendingSession)]: null,
+      [Symbol(asyncId)]: 296,
+      [Symbol(kHandle)]: [TLSWrap],
+      [Symbol(kSetNoDelay)]: false,
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(kCapture)]: false,
+      [Symbol(kBytesRead)]: 0,
+      [Symbol(kBytesWritten)]: 0,
+      [Symbol(connect-options)]: [Object]
+    },
+    _header: 'GET /civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo HTTP/1.1\r\n' +
+      'Accept: application/json, text/plain, */*\r\n' +
+      'User-Agent: axios/0.21.0\r\n' +
+      'Host: civicinfo.googleapis.com\r\n' +
+      'Connection: close\r\n' +
+      '\r\n',
+    _keepAliveTimeout: 0,
+    _onPendingData: [Function: noopPendingOutput],
+    agent: Agent {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      defaultPort: 443,
+      protocol: 'https:',
+      options: [Object],
+      requests: {},
+      sockets: [Object],
+      freeSockets: {},
+      keepAliveMsecs: 1000,
+      keepAlive: false,
+      maxSockets: Infinity,
+      maxFreeSockets: 256,
+      maxTotalSockets: Infinity,
+      totalSocketCount: 1,
+      maxCachedSessions: 100,
+      _sessionCache: [Object],
+      [Symbol(kCapture)]: false
+    },
+    socketPath: undefined,
+    method: 'GET',
+    insecureHTTPParser: undefined,
+    path: '/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+    _ended: true,
+    res: IncomingMessage {
+      _readableState: [ReadableState],
+      readable: false,
+      _events: [Object: null prototype],
+      _eventsCount: 3,
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      connection: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      headers: [Object],
+      rawHeaders: [Array],
+      trailers: {},
+      rawTrailers: [],
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 404,
+      statusMessage: 'Not Found',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [Circular],
+      responseUrl: 'https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+      redirects: [],
+      [Symbol(kCapture)]: false
+    },
+    aborted: false,
+    timeoutCb: null,
+    upgradeOrConnect: false,
+    parser: null,
+    maxHeadersCount: null,
+    reusedSocket: false,
+    host: 'civicinfo.googleapis.com',
+    protocol: 'https:',
+    _redirectable: Writable {
+      _writableState: [WritableState],
+      writable: true,
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      _options: [Object],
+      _ended: true,
+      _ending: true,
+      _redirectCount: 0,
+      _redirects: [],
+      _requestBodyLength: 0,
+      _requestBodyBuffers: [],
+      _onNativeResponse: [Function],
+      _currentRequest: [Circular],
+      _currentUrl: 'https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+      [Symbol(kCapture)]: false
+    },
+    [Symbol(kCapture)]: false,
+    [Symbol(kNeedDrain)]: false,
+    [Symbol(corked)]: 0,
+    [Symbol(kOutHeaders)]: [Object: null prototype] {
+      accept: [Array],
+      'user-agent': [Array],
+      host: [Array]
+    }
+  },
+  response: {
+    status: 404,
+    statusText: 'Not Found',
+    headers: {
+      'content-type': 'application/json; charset=UTF-8',
+      vary: 'X-Origin, Referer, Origin,Accept-Encoding',
+      date: 'Sun, 22 Nov 2020 20:27:00 GMT',
+      server: 'ESF',
+      'cache-control': 'private',
+      'x-xss-protection': '0',
+      'x-frame-options': 'SAMEORIGIN',
+      'x-content-type-options': 'nosniff',
+      'alt-svc': 'h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"',
+      'accept-ranges': 'none',
+      connection: 'close',
+      'transfer-encoding': 'chunked'
+    },
+    config: {
+      url: 'https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+      method: 'get',
+      headers: [Object],
+      transformRequest: [Array],
+      transformResponse: [Array],
+      timeout: 0,
+      adapter: [Function: httpAdapter],
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      validateStatus: [Function: validateStatus],
+      data: undefined
+    },
+    request: ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 7,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      socket: [TLSSocket],
+      connection: [TLSSocket],
+      _header: 'GET /civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo HTTP/1.1\r\n' +
+        'Accept: application/json, text/plain, */*\r\n' +
+        'User-Agent: axios/0.21.0\r\n' +
+        'Host: civicinfo.googleapis.com\r\n' +
+        'Connection: close\r\n' +
+        '\r\n',
+      _keepAliveTimeout: 0,
+      _onPendingData: [Function: noopPendingOutput],
+      agent: [Agent],
+      socketPath: undefined,
+      method: 'GET',
+      insecureHTTPParser: undefined,
+      path: '/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3Adc?roles=legislatorUpperBody&roles=headOfGovernment&key=AIzaSyDx5SFXzfuixOLSl33c4wPPruvxDAkEvEo',
+      _ended: true,
+      res: [IncomingMessage],
+      aborted: false,
+      timeoutCb: null,
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      host: 'civicinfo.googleapis.com',
+      protocol: 'https:',
+      _redirectable: [Writable],
+      [Symbol(kCapture)]: false,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kOutHeaders)]: [Object: null prototype]
+    },
+    data: { error: [Object] }
+  },
+  isAxiosError: true,
+  toJSON: [Function: toJSON]
+}
+{
+  AK: [
+    'AK',             'Alaska',
+    '731545',         '1.28112659200000',
+    102,              26044,
+    918745,           675,
+    1,                'Mike Dunleavy',
+    'Lisa Murkowski', 'Dan Sullivan',
+    'R',              'R',
+    'R',              -1
+  ],
+  AL: [
+    'AL',         'Alabama',
+    '4903185',    '96.81165243500000',
+    3457,         230708,
+    1555799,      2335,
+    6,            'Kay Ivey',
+    'Doug Jones', 'Richard C. Shelby',
+    'R',          'D',
+    'R',          -0.5
+  ],
+  AR: [
+    'AR',           'Arkansas',
+    '3017804',      '57.99283630500000',
+    2337,           143821,
+    1597546,        1905,
+    16,             'Asa Hutchinson',
+    'John Boozman', 'Tom Cotton',
+    'R',            'R',
+    'R',            -1
+  ],
+  AZ: [
+    'AZ',             'Arizona',
+    '7278717',        '64.04325175200000',
+    6457,             295334,
+    2092097,          3638,
+    30,               'Doug Ducey',
+    'Martha McSally', 'Kyrsten Sinema',
+    'R',              'R',
+    'D',              -0.5
+  ],
+  CA: [
+    'CA',               'California',
+    '39512223',         '253.52068818000000',
+    18643,              1087714,
+    21971832,           15442,
+    86,                 'Gavin Newsom',
+    'Dianne Feinstein', 'Kamala D. Harris',
+    'D',                'D',
+    'D',                1
+  ],
+  CO: [
+    'CO',           'Colorado',
+    '5758736',      '55.56614283700000',
+    2355,           194679,
+    1598694,        6113,
+    0,              'Jared Polis',
+    'Cory Gardner', 'Michael F. Bennet',
+    'D',            'R',
+    'D',            0.5
+  ],
+  CT: [
+    'CT',                 'Connecticut',
+    '3565287',            '736.22104642000000',
+    4828,                 101469,
+    2929060,              0,
+    0,                    'Ned Lamont',
+    'Richard Blumenthal', 'Christopher Murphy',
+    'D',                  'D',
+    'D',                  1
+  ],
+  DE: [
+    'DE',               'Delaware',
+    '973764',           '499.74775877000000',
+    746,                31321,
+    396943,             505,
+    0,                  'John Carney',
+    'Thomas R. Carper', 'Christopher A. Coons',
+    'D',                'D',
+    'D',                1
+  ],
+  FL: [
+    'FL',          'Florida',
+    '21477737',    '400.34642766000000',
+    18152,         918240,
+    6855659,       8175,
+    42,            'Ron DeSantis',
+    'Marco Rubio', 'Rick Scott',
+    'R',           'R',
+    'R',           -1
+  ],
+  GA: [
+    'GA',           'Georgia',
+    '10617423',     '183.95873142000000',
+    9179,           402435,
+    4086142,        3025,
+    37,             'Brian Kemp',
+    'David Perdue', 'Kelly Loeffler',
+    'R',            'R',
+    'R',            -1
+  ],
+  HI: [
+    'HI',           'Hawaii',
+    '1415872',      '220.45750094000000',
+    231,            17361,
+    312514,         162,
+    7,              'David Ige',
+    'Brian Schatz', 'Mazie K. Hirono',
+    'D',            'D',
+    'D',            1
+  ],
+  IA: [
+    'IA',             'Iowa',
+    '3155070',        '56.48808963000000',
+    2160,             184968,
+    1027073,          3178,
+    27,               'Kim Reynolds',
+    'Chuck Grassley', 'Joni Ernst',
+    'R',              'R',
+    'R',              -1
+  ],
+  ID: [
+    'ID',         'Idaho',
+    '1787065',    '21.62335488800000',
+    845,          89764,
+    461195,       1786,
+    10,           'Brad Little',
+    'Mike Crapo', 'James E. Risch',
+    'R',          'R',
+    'R',          -1
+  ],
+  IL: [
+    'IL',              'Illinois',
+    '12671821',        '228.26467808000000',
+    11952,             646286,
+    9708982,           11891,
+    157,               'J.B. Pritzker',
+    'Tammy Duckworth', 'Richard J. Durbin',
+    'D',               'D',
+    'D',               1
+  ],
+  IN: [
+    'IN',         'Indiana',
+    '6732219',    '187.91203111000000',
+    5246,         289183,
+    2053143,      6872,
+    40,           'Eric J. Holcomb',
+    'Mike Braun', 'Todd Young',
+    'R',          'R',
+    'R',          -1
+  ],
+  KS: [
+    'KS',          'Kansas',
+    '2913314',     '35.63317347300000',
+    1410,          134533,
+    763893,        0,
+    0,             'Laura Kelly',
+    'Jerry Moran', 'Pat Roberts',
+    'D',           'R',
+    'R',           0
+  ],
+  KY: [
+    'KY',              'Kentucky',
+    '4467673',         '113.13031412000000',
+    1783,              155908,
+    2434836,           3702,
+    21,                'Andy Beshear',
+    'Mitch McConnell', 'Rand Paul',
+    'D',               'R',
+    'R',               0
+  ],
+  LA: [
+    'LA',           'Louisiana',
+    '4648794',      '107.59979292000000',
+    6233,           216709,
+    3209377,        0,
+    0,              'John Bel Edwards',
+    'Bill Cassidy', 'John Kennedy',
+    'D',            'R',
+    'R',            0
+  ],
+  MA: [
+    'MA',               'Massachusetts',
+    '6892503',          '883.54570363000000',
+    10488,              204155,
+    3181171,            3206,
+    19,                 'Charles D. Baker',
+    'Elizabeth Warren', 'Edward J. Markey',
+    'R',                'D',
+    'D',                0
+  ],
+  MD: [
+    'MD',               'Maryland',
+    '6045680',          '622.55125026000000',
+    4415,               179971,
+    2206289,            2885,
+    17,                 'Larry Hogan',
+    'Chris Van Hollen', 'Benjamin L. Cardin',
+    'R',                'D',
+    'D',                0
+  ],
+  ME: [
+    'ME',               'Maine',
+    '1344212',          '43.57985940900000',
+    174,                10123,
+    795556,             165,
+    1,                  'Janet Mills',
+    'Susan M. Collins', 'Angus S. King Jr.',
+    'D',                'R',
+    'I',                0
+  ],
+  MI: [
+    'MI',             'Michigan',
+    '9986857',        '176.42773980000000',
+    8875,             329021,
+    6164253,          7840,
+    101,              'Gretchen Whitmer',
+    'Gary C. Peters', 'Debbie Stabenow',
+    'D',              'D',
+    'D',              1
+  ],
+  MN: [
+    'MN',         'Minnesota',
+    '5639632',    '70.82662351200000',
+    3201,         262952,
+    2282358,      6252,
+    51,           'Tim Walz',
+    'Tina Smith', 'Amy Klobuchar',
+    'D',          'D',
+    'D',          1
+  ],
+  MO: [
+    'MO',          'Missouri',
+    '6137428',     '89.27757816400000',
+    3555,          267312,
+    1727217,       4876,
+    18,            'Michael L. Parson',
+    'Josh Hawley', 'Roy Blunt',
+    'R',           'R',
+    'R',           -1
+  ],
+  MS: [
+    'MS',               'Mississippi',
+    '2976149',          '63.42279731700000',
+    3657,               142401,
+    1049392,            1972,
+    15,                 'Tate Reeves',
+    'Cindy Hyde-Smith', 'Roger F. Wicker',
+    'R',                'R',
+    'R',                -1
+  ],
+  MT: [
+    'MT',         'Montana',
+    '1068778',    '7.34314521650000',
+    600,          54542,
+    608502,       1249,
+    33,           'Steve Bullock',
+    'Jon Tester', 'Steve Daines',
+    'D',          'D',
+    'R',          0.5
+  ],
+  NC: [
+    'NC',          'North Carolina',
+    '10488084',    '215.71420423000000',
+    5005,          332261,
+    4878076,       3415,
+    26,            'Roy Cooper',
+    'Thom Tillis', 'Richard Burr',
+    'D',           'R',
+    'R',           0
+  ],
+  ND: [
+    'ND',          'North Dakota',
+    '762062',      '11.04521346200000',
+    673,           71540,
+    335688,        1524,
+    0,             'Doug Burgum',
+    'John Hoeven', 'Kevin Cramer',
+    'R',           'R',
+    'R',           -1
+  ],
+  NE: [
+    'NE',        'Nebraska',
+    '1934408',   '25.18219543000000',
+    897,         111661,
+    698840,      2381,
+    43,          'Pete Ricketts',
+    'Ben Sasse', 'Deb Fischer',
+    'R',         'R',
+    'R',         -1
+  ],
+  NH: [
+    'NH',                   'New Hampshire',
+    '1359711',              '151.86532690000000',
+    508,                    17281,
+    400533,                 484,
+    1,                      'Chris Sununu',
+    'Margaret Wood Hassan', 'Jeanne Shaheen',
+    'R',                    'D',
+    'D',                    0
+  ],
+  NJ: [
+    'NJ',             'New Jersey',
+    '8882190',        '1207.67221710000000',
+    16746,            302039,
+    5567342,          4669,
+    34,               'Phil Murphy',
+    'Cory A. Booker', 'Robert Menendez',
+    'D',              'D',
+    'D',              1
+  ],
+  NM: [
+    'NM',
+    'New Mexico',
+    '2096829',
+    '17.28456209900000',
+    1350,
+    79440,
+    1444121,
+    2342,
+    25,
+    'Michelle Lujan Grisham',
+    'Tom Udall',
+    'Martin Heinrich',
+    'D',
+    'D',
+    'D',
+    1
+  ],
+  NV: [
+    'NV',
+    'Nevada',
+    '3080156',
+    '28.03700636500000',
+    2011,
+    131733,
+    919379,
+    2019,
+    29,
+    'Steve Sisolak',
+    'Catherine Cortez Masto',
+    'Jacky Rosen',
+    'D',
+    'D',
+    'D',
+    1
+  ],
+  NY: [
+    'NY',
+    'New York',
+    '19453561',
+    '412.81842864000000',
+    26326,
+    590822,
+    17799741,
+    5972,
+    34,
+    'Andrew M. Cuomo',
+    'Kirsten E. Gillibrand',
+    'Charles E. Schumer',
+    'D',
+    'D',
+    'D',
+    1
+  ],
+  OH: [
+    'OH',            'Ohio',
+    '11689100',      '286.08552119000000',
+    5984,            343286,
+    5609595,         7863,
+    29,              'Mike DeWine',
+    'Sherrod Brown', 'Rob Portman',
+    'R',             'D',
+    'R',             -0.5
+  ],
+  OK: [
+    'OK',             'Oklahoma',
+    '3956971',        '57.68520257700000',
+    1624,             170924,
+    1972179,          3663,
+    21,               'Kevin Stitt',
+    'James Lankford', 'James M. Inhofe',
+    'R',              'R',
+    'R',              -1
+  ],
+  OR: [
+    'OR',        'Oregon',
+    '4217737',   '43.94025129200000',
+    819,         63668,
+    1001247,     1493,
+    7,           'Kate Brown',
+    'Ron Wyden', 'Jeff Merkley',
+    'D',         'D',
+    'D',         1
+  ],
+  PA: [
+    'PA',                  'Pennsylvania',
+    '12801989',            '286.13105806000000',
+    9801,                  302564,
+    2971240,               6778,
+    112,                   'Tom Wolf',
+    'Robert P. Casey Jr.', 'Patrick J. Toomey',
+    'D',                   'D',
+    'R',                   0.5
+  ],
+  RI: [
+    'RI',                 'Rhode Island',
+    '1059361',            '1024.62672880000000',
+    1294,                 48001,
+    500932,               0,
+    0,                    'Gina M. Raimondo',
+    'Sheldon Whitehouse', 'Jack Reed',
+    'D',                  'D',
+    'D',                  1
+  ],
+  SC: [
+    'SC',        'South Carolina',
+    '5148714',   '171.26007636000000',
+    4274,        205018,
+    2225252,     1857,
+    43,          'Henry McMaster',
+    'Tim Scott', 'Lindsey Graham',
+    'R',         'R',
+    'R',         -1
+  ],
+  SD: [
+    'SD',          'South Dakota',
+    '884659',      '11.66947080600000',
+    777,           72214,
+    309170,        1144,
+    36,            'Kristi Noem',
+    'Mike Rounds', 'John Thune',
+    'R',           'R',
+    'R',           -1
+  ],
+  TN: [
+    'TN',               'Tennessee',
+    '6829174',          '165.60404231000000',
+    4211,               335887,
+    4269060,            4355,
+    9,                  'Bill Lee',
+    'Marsha Blackburn', 'Lamar Alexander',
+    'R',                'R',
+    'R',                -1
+  ],
+  TX: [
+    'TX',          'Texas',
+    '28995881',    '110.98346670000000',
+    20467,         1085524,
+    9908129,       12826,
+    171,           'Greg Abbott',
+    'John Cornyn', 'Ted Cruz',
+    'R',           'R',
+    'R',           -1
+  ],
+  UT: [
+    'UT',          'Utah',
+    '3205958',     '38.91817613200000',
+    787,           173979,
+    1259782,       3395,
+    14,            'Gary R. Herbert',
+    'Mitt Romney', 'Mike Lee',
+    'R',           'R',
+    'R',           -1
+  ],
+  VA: [
+    'VA',             'Virginia',
+    '8535519',        '216.18675868000000',
+    3938,             215679,
+    3093409,          2348,
+    26,               'Ralph S. Northam',
+    'Mark R. Warner', 'Tim Kaine',
+    'D',              'D',
+    'D',              1
+  ],
+  VT: [
+    'VT',             'Vermont',
+    '623989',         '67.69333266300000',
+    63,               3546,
+    210293,           87,
+    1,                'Phil Scott',
+    'Bernie Sanders', 'Patrick J. Leahy',
+    'R',              'I',
+    'D',              -0.5
+  ],
+  WA: [
+    'WA',           'Washington',
+    '7614893',      '114.58700852000000',
+    2619,           139543,
+    2877894,        2132,
+    16,             'Jay Inslee',
+    'Patty Murray', 'Maria Cantwell',
+    'D',            'D',
+    'D',            1
+  ],
+  WI: [
+    'WI',          'Wisconsin',
+    '5822434',     '107.48955424000000',
+    3143,          372219,
+    2446247,       7029,
+    52,            'Tony Evers',
+    'Ron Johnson', 'Tammy Baldwin',
+    'D',           'R',
+    'D',           0.5
+  ],
+  WV: [
+    'WV',                   'West Virginia',
+    '1792147',              '74.54504806100000',
+    658,                    39598,
+    1013043,                1118,
+    19,                     'Jim Justice',
+    'Shelley Moore Capito', 'Joe Manchin III',
+    'R',                    'R',
+    'D',                    -0.5
+  ],
+  WY: [
+    'WY',            'Wyoming',
+    '578759',        '5.96113632530000',
+    176,             27410,
+    159198,          281,
+    0,               'Mark Gordon',
+    'John Barrasso', 'Michael B. Enzi',
+    'R',             'R',
+    'R',             -1
+  ]
+}
+1.28112659200000
+96.81165243500000
+57.99283630500000
+64.04325175200000
+253.52068818000000
+55.56614283700000
+736.22104642000000
+499.74775877000000
+400.34642766000000
+183.95873142000000
+220.45750094000000
+56.48808963000000
+21.62335488800000
+228.26467808000000
+187.91203111000000
+35.63317347300000
+113.13031412000000
+107.59979292000000
+883.54570363000000
+622.55125026000000
+43.57985940900000
+176.42773980000000
+70.82662351200000
+89.27757816400000
+63.42279731700000
+7.34314521650000
+215.71420423000000
+11.04521346200000
+25.18219543000000
+151.86532690000000
+1207.67221710000000
+17.28456209900000
+28.03700636500000
+412.81842864000000
+286.08552119000000
+57.68520257700000
+43.94025129200000
+286.13105806000000
+1024.62672880000000
+171.26007636000000
+11.66947080600000
+165.60404231000000
+110.98346670000000
+38.91817613200000
+216.18675868000000
+67.69333266300000
+114.58700852000000
+107.48955424000000
+74.54504806100000
+5.96113632530000
+State Entries: {
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac999ade0533373a14258,
+  shortName: 'AK',
+  longName: 'Alaska',
+  population: 731545,
+  populationDensity: 1.281126592,
+  death: 102,
+  positive: 26044,
+  totalTests: 918745,
+  positiveIncrease: 675,
+  deathIncrease: 1,
+  governor: 'Mike Dunleavy',
+  senator1: 'Lisa Murkowski',
+  senator2: 'Dan Sullivan',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'D',
+  senator2Party: 'R',
+  _id: 5fbac999ade0533373a14259,
+  shortName: 'AL',
+  longName: 'Alabama',
+  population: 4903185,
+  populationDensity: 96.811652435,
+  death: 3457,
+  positive: 230708,
+  totalTests: 1555799,
+  positiveIncrease: 2335,
+  deathIncrease: 6,
+  governor: 'Kay Ivey',
+  senator1: 'Doug Jones',
+  senator2: 'Richard C. Shelby',
+  partyScore: -0.5,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a1425a,
+  shortName: 'AR',
+  longName: 'Arkansas',
+  population: 3017804,
+  populationDensity: 57.992836305,
+  death: 2337,
+  positive: 143821,
+  totalTests: 1597546,
+  positiveIncrease: 1905,
+  deathIncrease: 16,
+  governor: 'Asa Hutchinson',
+  senator1: 'John Boozman',
+  senator2: 'Tom Cotton',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1425b,
+  shortName: 'AZ',
+  longName: 'Arizona',
+  population: 7278717,
+  populationDensity: 64.043251752,
+  death: 6457,
+  positive: 295334,
+  totalTests: 2092097,
+  positiveIncrease: 3638,
+  deathIncrease: 30,
+  governor: 'Doug Ducey',
+  senator1: 'Martha McSally',
+  senator2: 'Kyrsten Sinema',
+  partyScore: -0.5,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1425c,
+  shortName: 'CA',
+  longName: 'California',
+  population: 39512223,
+  populationDensity: 253.52068818,
+  death: 18643,
+  positive: 1087714,
+  totalTests: 21971832,
+  positiveIncrease: 15442,
+  deathIncrease: 86,
+  governor: 'Gavin Newsom',
+  senator1: 'Dianne Feinstein',
+  senator2: 'Kamala D. Harris',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1425d,
+  shortName: 'CO',
+  longName: 'Colorado',
+  population: 5758736,
+  populationDensity: 55.566142837,
+  death: 2355,
+  positive: 194679,
+  totalTests: 1598694,
+  positiveIncrease: 6113,
+  deathIncrease: 0,
+  governor: 'Jared Polis',
+  senator1: 'Cory Gardner',
+  senator2: 'Michael F. Bennet',
+  partyScore: 0.5,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1425e,
+  shortName: 'CT',
+  longName: 'Connecticut',
+  population: 3565287,
+  populationDensity: 736.22104642,
+  death: 4828,
+  positive: 101469,
+  totalTests: 2929060,
+  positiveIncrease: 0,
+  deathIncrease: 0,
+  governor: 'Ned Lamont',
+  senator1: 'Richard Blumenthal',
+  senator2: 'Christopher Murphy',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1425f,
+  shortName: 'DE',
+  longName: 'Delaware',
+  population: 973764,
+  populationDensity: 499.74775877,
+  death: 746,
+  positive: 31321,
+  totalTests: 396943,
+  positiveIncrease: 505,
+  deathIncrease: 0,
+  governor: 'John Carney',
+  senator1: 'Thomas R. Carper',
+  senator2: 'Christopher A. Coons',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14260,
+  shortName: 'FL',
+  longName: 'Florida',
+  population: 21477737,
+  populationDensity: 400.34642766,
+  death: 18152,
+  positive: 918240,
+  totalTests: 6855659,
+  positiveIncrease: 8175,
+  deathIncrease: 42,
+  governor: 'Ron DeSantis',
+  senator1: 'Marco Rubio',
+  senator2: 'Rick Scott',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14261,
+  shortName: 'GA',
+  longName: 'Georgia',
+  population: 10617423,
+  populationDensity: 183.95873142,
+  death: 9179,
+  positive: 402435,
+  totalTests: 4086142,
+  positiveIncrease: 3025,
+  deathIncrease: 37,
+  governor: 'Brian Kemp',
+  senator1: 'David Perdue',
+  senator2: 'Kelly Loeffler',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a14262,
+  shortName: 'HI',
+  longName: 'Hawaii',
+  population: 1415872,
+  populationDensity: 220.45750094,
+  death: 231,
+  positive: 17361,
+  totalTests: 312514,
+  positiveIncrease: 162,
+  deathIncrease: 7,
+  governor: 'David Ige',
+  senator1: 'Brian Schatz',
+  senator2: 'Mazie K. Hirono',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14263,
+  shortName: 'IA',
+  longName: 'Iowa',
+  population: 3155070,
+  populationDensity: 56.48808963,
+  death: 2160,
+  positive: 184968,
+  totalTests: 1027073,
+  positiveIncrease: 3178,
+  deathIncrease: 27,
+  governor: 'Kim Reynolds',
+  senator1: 'Chuck Grassley',
+  senator2: 'Joni Ernst',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14264,
+  shortName: 'ID',
+  longName: 'Idaho',
+  population: 1787065,
+  populationDensity: 21.623354888,
+  death: 845,
+  positive: 89764,
+  totalTests: 461195,
+  positiveIncrease: 1786,
+  deathIncrease: 10,
+  governor: 'Brad Little',
+  senator1: 'Mike Crapo',
+  senator2: 'James E. Risch',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a14265,
+  shortName: 'IL',
+  longName: 'Illinois',
+  population: 12671821,
+  populationDensity: 228.26467808,
+  death: 11952,
+  positive: 646286,
+  totalTests: 9708982,
+  positiveIncrease: 11891,
+  deathIncrease: 157,
+  governor: 'J.B. Pritzker',
+  senator1: 'Tammy Duckworth',
+  senator2: 'Richard J. Durbin',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14266,
+  shortName: 'IN',
+  longName: 'Indiana',
+  population: 6732219,
+  populationDensity: 187.91203111,
+  death: 5246,
+  positive: 289183,
+  totalTests: 2053143,
+  positiveIncrease: 6872,
+  deathIncrease: 40,
+  governor: 'Eric J. Holcomb',
+  senator1: 'Mike Braun',
+  senator2: 'Todd Young',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14267,
+  shortName: 'KS',
+  longName: 'Kansas',
+  population: 2913314,
+  populationDensity: 35.633173473,
+  death: 1410,
+  positive: 134533,
+  totalTests: 763893,
+  positiveIncrease: 0,
+  deathIncrease: 0,
+  governor: 'Laura Kelly',
+  senator1: 'Jerry Moran',
+  senator2: 'Pat Roberts',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14268,
+  shortName: 'KY',
+  longName: 'Kentucky',
+  population: 4467673,
+  populationDensity: 113.13031412,
+  death: 1783,
+  positive: 155908,
+  totalTests: 2434836,
+  positiveIncrease: 3702,
+  deathIncrease: 21,
+  governor: 'Andy Beshear',
+  senator1: 'Mitch McConnell',
+  senator2: 'Rand Paul',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99aade0533373a14269,
+  shortName: 'LA',
+  longName: 'Louisiana',
+  population: 4648794,
+  populationDensity: 107.59979292,
+  death: 6233,
+  positive: 216709,
+  totalTests: 3209377,
+  positiveIncrease: 0,
+  deathIncrease: 0,
+  governor: 'John Bel Edwards',
+  senator1: 'Bill Cassidy',
+  senator2: 'John Kennedy',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1426a,
+  shortName: 'MA',
+  longName: 'Massachusetts',
+  population: 6892503,
+  populationDensity: 883.54570363,
+  death: 10488,
+  positive: 204155,
+  totalTests: 3181171,
+  positiveIncrease: 3206,
+  deathIncrease: 19,
+  governor: 'Charles D. Baker',
+  senator1: 'Elizabeth Warren',
+  senator2: 'Edward J. Markey',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99aade0533373a1426b,
+  shortName: 'MD',
+  longName: 'Maryland',
+  population: 6045680,
+  populationDensity: 622.55125026,
+  death: 4415,
+  positive: 179971,
+  totalTests: 2206289,
+  positiveIncrease: 2885,
+  deathIncrease: 17,
+  governor: 'Larry Hogan',
+  senator1: 'Chris Van Hollen',
+  senator2: 'Benjamin L. Cardin',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'I',
+  _id: 5fbac99aade0533373a1426c,
+  shortName: 'ME',
+  longName: 'Maine',
+  population: 1344212,
+  populationDensity: 43.579859409,
+  death: 174,
+  positive: 10123,
+  totalTests: 795556,
+  positiveIncrease: 165,
+  deathIncrease: 1,
+  governor: 'Janet Mills',
+  senator1: 'Susan M. Collins',
+  senator2: 'Angus S. King Jr.',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a1426d,
+  shortName: 'MI',
+  longName: 'Michigan',
+  population: 9986857,
+  populationDensity: 176.4277398,
+  death: 8875,
+  positive: 329021,
+  totalTests: 6164253,
+  positiveIncrease: 7840,
+  deathIncrease: 101,
+  governor: 'Gretchen Whitmer',
+  senator1: 'Gary C. Peters',
+  senator2: 'Debbie Stabenow',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a1426e,
+  shortName: 'MN',
+  longName: 'Minnesota',
+  population: 5639632,
+  populationDensity: 70.826623512,
+  death: 3201,
+  positive: 262952,
+  totalTests: 2282358,
+  positiveIncrease: 6252,
+  deathIncrease: 51,
+  governor: 'Tim Walz',
+  senator1: 'Tina Smith',
+  senator2: 'Amy Klobuchar',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a1426f,
+  shortName: 'MO',
+  longName: 'Missouri',
+  population: 6137428,
+  populationDensity: 89.277578164,
+  death: 3555,
+  positive: 267312,
+  totalTests: 1727217,
+  positiveIncrease: 4876,
+  deathIncrease: 18,
+  governor: 'Michael L. Parson',
+  senator1: 'Josh Hawley',
+  senator2: 'Roy Blunt',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a14270,
+  shortName: 'MS',
+  longName: 'Mississippi',
+  population: 2976149,
+  populationDensity: 63.422797317,
+  death: 3657,
+  positive: 142401,
+  totalTests: 1049392,
+  positiveIncrease: 1972,
+  deathIncrease: 15,
+  governor: 'Tate Reeves',
+  senator1: 'Cindy Hyde-Smith',
+  senator2: 'Roger F. Wicker',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a14271,
+  shortName: 'MT',
+  longName: 'Montana',
+  population: 1068778,
+  populationDensity: 7.3431452165,
+  death: 600,
+  positive: 54542,
+  totalTests: 608502,
+  positiveIncrease: 1249,
+  deathIncrease: 33,
+  governor: 'Steve Bullock',
+  senator1: 'Jon Tester',
+  senator2: 'Steve Daines',
+  partyScore: 0.5,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a14272,
+  shortName: 'NC',
+  longName: 'North Carolina',
+  population: 10488084,
+  populationDensity: 215.71420423,
+  death: 5005,
+  positive: 332261,
+  totalTests: 4878076,
+  positiveIncrease: 3415,
+  deathIncrease: 26,
+  governor: 'Roy Cooper',
+  senator1: 'Thom Tillis',
+  senator2: 'Richard Burr',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a14273,
+  shortName: 'ND',
+  longName: 'North Dakota',
+  population: 762062,
+  populationDensity: 11.045213462,
+  death: 673,
+  positive: 71540,
+  totalTests: 335688,
+  positiveIncrease: 1524,
+  deathIncrease: 0,
+  governor: 'Doug Burgum',
+  senator1: 'John Hoeven',
+  senator2: 'Kevin Cramer',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a14274,
+  shortName: 'NE',
+  longName: 'Nebraska',
+  population: 1934408,
+  populationDensity: 25.18219543,
+  death: 897,
+  positive: 111661,
+  totalTests: 698840,
+  positiveIncrease: 2381,
+  deathIncrease: 43,
+  governor: 'Pete Ricketts',
+  senator1: 'Ben Sasse',
+  senator2: 'Deb Fischer',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a14275,
+  shortName: 'NH',
+  longName: 'New Hampshire',
+  population: 1359711,
+  populationDensity: 151.8653269,
+  death: 508,
+  positive: 17281,
+  totalTests: 400533,
+  positiveIncrease: 484,
+  deathIncrease: 1,
+  governor: 'Chris Sununu',
+  senator1: 'Margaret Wood Hassan',
+  senator2: 'Jeanne Shaheen',
+  partyScore: 0,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a14276,
+  shortName: 'NJ',
+  longName: 'New Jersey',
+  population: 8882190,
+  populationDensity: 1207.6722171,
+  death: 16746,
+  positive: 302039,
+  totalTests: 5567342,
+  positiveIncrease: 4669,
+  deathIncrease: 34,
+  governor: 'Phil Murphy',
+  senator1: 'Cory A. Booker',
+  senator2: 'Robert Menendez',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a14277,
+  shortName: 'NM',
+  longName: 'New Mexico',
+  population: 2096829,
+  populationDensity: 17.284562099,
+  death: 1350,
+  positive: 79440,
+  totalTests: 1444121,
+  positiveIncrease: 2342,
+  deathIncrease: 25,
+  governor: 'Michelle Lujan Grisham',
+  senator1: 'Tom Udall',
+  senator2: 'Martin Heinrich',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a14278,
+  shortName: 'NV',
+  longName: 'Nevada',
+  population: 3080156,
+  populationDensity: 28.037006365,
+  death: 2011,
+  positive: 131733,
+  totalTests: 919379,
+  positiveIncrease: 2019,
+  deathIncrease: 29,
+  governor: 'Steve Sisolak',
+  senator1: 'Catherine Cortez Masto',
+  senator2: 'Jacky Rosen',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a14279,
+  shortName: 'NY',
+  longName: 'New York',
+  population: 19453561,
+  populationDensity: 412.81842864,
+  death: 26326,
+  positive: 590822,
+  totalTests: 17799741,
+  positiveIncrease: 5972,
+  deathIncrease: 34,
+  governor: 'Andrew M. Cuomo',
+  senator1: 'Kirsten E. Gillibrand',
+  senator2: 'Charles E. Schumer',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'D',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a1427a,
+  shortName: 'OH',
+  longName: 'Ohio',
+  population: 11689100,
+  populationDensity: 286.08552119,
+  death: 5984,
+  positive: 343286,
+  totalTests: 5609595,
+  positiveIncrease: 7863,
+  deathIncrease: 29,
+  governor: 'Mike DeWine',
+  senator1: 'Sherrod Brown',
+  senator2: 'Rob Portman',
+  partyScore: -0.5,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a1427b,
+  shortName: 'OK',
+  longName: 'Oklahoma',
+  population: 3956971,
+  populationDensity: 57.685202577,
+  death: 1624,
+  positive: 170924,
+  totalTests: 1972179,
+  positiveIncrease: 3663,
+  deathIncrease: 21,
+  governor: 'Kevin Stitt',
+  senator1: 'James Lankford',
+  senator2: 'James M. Inhofe',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a1427c,
+  shortName: 'OR',
+  longName: 'Oregon',
+  population: 4217737,
+  populationDensity: 43.940251292,
+  death: 819,
+  positive: 63668,
+  totalTests: 1001247,
+  positiveIncrease: 1493,
+  deathIncrease: 7,
+  governor: 'Kate Brown',
+  senator1: 'Ron Wyden',
+  senator2: 'Jeff Merkley',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'R',
+  _id: 5fbac99bade0533373a1427d,
+  shortName: 'PA',
+  longName: 'Pennsylvania',
+  population: 12801989,
+  populationDensity: 286.13105806,
+  death: 9801,
+  positive: 302564,
+  totalTests: 2971240,
+  positiveIncrease: 6778,
+  deathIncrease: 112,
+  governor: 'Tom Wolf',
+  senator1: 'Robert P. Casey Jr.',
+  senator2: 'Patrick J. Toomey',
+  partyScore: 0.5,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99bade0533373a1427e,
+  shortName: 'RI',
+  longName: 'Rhode Island',
+  population: 1059361,
+  populationDensity: 1024.6267288,
+  death: 1294,
+  positive: 48001,
+  totalTests: 500932,
+  positiveIncrease: 0,
+  deathIncrease: 0,
+  governor: 'Gina M. Raimondo',
+  senator1: 'Sheldon Whitehouse',
+  senator2: 'Jack Reed',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a1427f,
+  shortName: 'SC',
+  longName: 'South Carolina',
+  population: 5148714,
+  populationDensity: 171.26007636,
+  death: 4274,
+  positive: 205018,
+  totalTests: 2225252,
+  positiveIncrease: 1857,
+  deathIncrease: 43,
+  governor: 'Henry McMaster',
+  senator1: 'Tim Scott',
+  senator2: 'Lindsey Graham',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a14280,
+  shortName: 'SD',
+  longName: 'South Dakota',
+  population: 884659,
+  populationDensity: 11.669470806,
+  death: 777,
+  positive: 72214,
+  totalTests: 309170,
+  positiveIncrease: 1144,
+  deathIncrease: 36,
+  governor: 'Kristi Noem',
+  senator1: 'Mike Rounds',
+  senator2: 'John Thune',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a14281,
+  shortName: 'TN',
+  longName: 'Tennessee',
+  population: 6829174,
+  populationDensity: 165.60404231,
+  death: 4211,
+  positive: 335887,
+  totalTests: 4269060,
+  positiveIncrease: 4355,
+  deathIncrease: 9,
+  governor: 'Bill Lee',
+  senator1: 'Marsha Blackburn',
+  senator2: 'Lamar Alexander',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a14282,
+  shortName: 'TX',
+  longName: 'Texas',
+  population: 28995881,
+  populationDensity: 110.9834667,
+  death: 20467,
+  positive: 1085524,
+  totalTests: 9908129,
+  positiveIncrease: 12826,
+  deathIncrease: 171,
+  governor: 'Greg Abbott',
+  senator1: 'John Cornyn',
+  senator2: 'Ted Cruz',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a14283,
+  shortName: 'UT',
+  longName: 'Utah',
+  population: 3205958,
+  populationDensity: 38.918176132,
+  death: 787,
+  positive: 173979,
+  totalTests: 1259782,
+  positiveIncrease: 3395,
+  deathIncrease: 14,
+  governor: 'Gary R. Herbert',
+  senator1: 'Mitt Romney',
+  senator2: 'Mike Lee',
+  partyScore: -1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99cade0533373a14284,
+  shortName: 'VA',
+  longName: 'Virginia',
+  population: 8535519,
+  populationDensity: 216.18675868,
+  death: 3938,
+  positive: 215679,
+  totalTests: 3093409,
+  positiveIncrease: 2348,
+  deathIncrease: 26,
+  governor: 'Ralph S. Northam',
+  senator1: 'Mark R. Warner',
+  senator2: 'Tim Kaine',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'I',
+  senator2Party: 'D',
+  _id: 5fbac99cade0533373a14285,
+  shortName: 'VT',
+  longName: 'Vermont',
+  population: 623989,
+  populationDensity: 67.693332663,
+  death: 63,
+  positive: 3546,
+  totalTests: 210293,
+  positiveIncrease: 87,
+  deathIncrease: 1,
+  governor: 'Phil Scott',
+  senator1: 'Bernie Sanders',
+  senator2: 'Patrick J. Leahy',
+  partyScore: -0.5,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'D',
+  senator2Party: 'D',
+  _id: 5fbac99cade0533373a14286,
+  shortName: 'WA',
+  longName: 'Washington',
+  population: 7614893,
+  populationDensity: 114.58700852,
+  death: 2619,
+  positive: 139543,
+  totalTests: 2877894,
+  positiveIncrease: 2132,
+  deathIncrease: 16,
+  governor: 'Jay Inslee',
+  senator1: 'Patty Murray',
+  senator2: 'Maria Cantwell',
+  partyScore: 1,
+  __v: 0
+},{
+  governorParty: 'D',
+  senator1Party: 'R',
+  senator2Party: 'D',
+  _id: 5fbac99cade0533373a14287,
+  shortName: 'WI',
+  longName: 'Wisconsin',
+  population: 5822434,
+  populationDensity: 107.48955424,
+  death: 3143,
+  positive: 372219,
+  totalTests: 2446247,
+  positiveIncrease: 7029,
+  deathIncrease: 52,
+  governor: 'Tony Evers',
+  senator1: 'Ron Johnson',
+  senator2: 'Tammy Baldwin',
+  partyScore: 0.5,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'D',
+  _id: 5fbac99cade0533373a14288,
+  shortName: 'WV',
+  longName: 'West Virginia',
+  population: 1792147,
+  populationDensity: 74.545048061,
+  death: 658,
+  positive: 39598,
+  totalTests: 1013043,
+  positiveIncrease: 1118,
+  deathIncrease: 19,
+  governor: 'Jim Justice',
+  senator1: 'Shelley Moore Capito',
+  senator2: 'Joe Manchin III',
+  partyScore: -0.5,
+  __v: 0
+},{
+  governorParty: 'R',
+  senator1Party: 'R',
+  senator2Party: 'R',
+  _id: 5fbac99cade0533373a14289,
+  shortName: 'WY',
+  longName: 'Wyoming',
+  population: 578759,
+  populationDensity: 5.9611363253,
+  death: 176,
+  positive: 27410,
+  totalTests: 159198,
+  positiveIncrease: 281,
+  deathIncrease: 0,
+  governor: 'Mark Gordon',
+  senator1: 'John Barrasso',
+  senator2: 'Michael B. Enzi',
+  partyScore: -1,
+  __v: 0
+}

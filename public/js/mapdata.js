@@ -33,8 +33,8 @@ var simplemaps_usmap_mapdata={
     all_locations_hidden: "no",
     
 		//Label defaults
-		label_color: "#ffffff",
-    label_hover_color: "#ffffff",
+		label_color: "#111",
+    label_hover_color: "#333",
     label_size: 22,
     label_font: "Arial",
     hide_labels: "no",
@@ -548,7 +548,7 @@ var simplemaps_usmap_mapdata={
       y: "332",
       pill: "yes",
       width: 45,
-      display: "all"
+      display: "none"
     },
     MA: {
       parent_id: "MA",
