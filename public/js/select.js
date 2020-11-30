@@ -1,3 +1,6 @@
+/* Copyright 2017, Chris Youderian, SimpleMaps, http://simplemaps.com
+ Released under MIT license - https://opensource.org/licenses/MIT 
+ */ 
 (function(plugin){
   
   //Start helper functions
@@ -20,13 +23,13 @@
     return {
       map: false,
       on_shift: false,
-      selected_color: '#9f9',      
+      selected_color: false,      
     }
   }()  
     
   docReady(function(){
     var me=window[plugin];
-    var map=me.map?me.map:simplemaps_usmap; //usmap is default
+    var map=me.map?me.map:simplemaps_countymap; //usmap is default
     var on_shift=me.on_shift;
     var selected_color=me.selected_color?me.selected_color:map.mapdata.main_settings.state_hover_color;
     var selected=[]; 
@@ -46,7 +49,8 @@
         if (index > -1){ //deselect state
           selected.splice(index, 1);   
           check_mapdata(state);
-          map.mapdata.state_specific[state].color=currentColorArray[state];
+          map.mapdata.state_specific[state].color=colorObj[state];
+          console.log(colorObj[state])
         }    
         done(state);
     }
@@ -70,7 +74,7 @@
     }
     
     var select_all=function(){
-      for (var state in simplemaps_usmap_mapinfo.paths){
+      for (var state in simplemaps_countymap_mapinfo.paths){
         select(state);
       }
     }

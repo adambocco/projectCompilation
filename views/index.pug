@@ -1,35 +1,81 @@
 extends layout
 
 block content
-  link(rel="stylesheet" href="./build/css/app.css")
-  div(class="container text-center")
-    div(class="display-4") Covid and Politics
-  div(class="container text-center")
-    div(class="row")
-      div(class="col border" id="expressionSpace")
-        button(class="btn btn-primary btn-outline-dark m-2 font-weight-bold" type="click" id="numDenom") Make an Expression
-    div(class="row")
-      div(class="col border")
-        div(id="map" class="m-auto")
-    div(class="row")
-      div(class="col")
-        button(class="btn btn-primary btn-outline-dark m-2 font-weight-bold" type="button" id="colorPolitics") Political Colors
-        button(class="btn btn-primary btn-outline-dark m-2 font-weight-bold" type="button" id="colorDeathPop") Death/Population
-        button(class="btn btn-primary btn-outline-dark m-2 font-weight-bold" type="button" id="colorDeathPopNormalized") Death/Population (Normalized)
-    div(class="row")
-      div(class="col")
-        div(id='selectedStates1')
-      div(class="col")
-        div(id='selectedStates2')
-  
-  script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
-  script(src="./build/js/app.js")
-  script(src="./js/mapdata.js")
-  script(src="./js/usmap.js")
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+  link(rel="stylesheet", href="./stylesheets/roundslider.min.css")
+  script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous")
+  script(src="https://code.jquery.com/jquery-3.2.1.js")
+  script(src="./js/roundslider.min.js")
+  .container
+    .row
+      .col
+        p.display-3.text-center Destination Fever
+        div.m-auto.mt-5(id="map")
+    .row.border.m-3
+      .col.text-center.p-3
+        p.text-center.font-weight-bold Choose parameters to filter the map
+        button.btn.btn-primary.m-1#weatherButton Weather
+        button.btn.btn-primary.m-1#populationButton Population
+        button.btn.btn-primary.m-1#covidButton COVID-19
+        button.btn.btn-primary.m-1#politicsButton Politics
+        button.btn.btn-primary.m-1#crimeButton Crime
+        button.btn.btn-primary.m-1#housingButton Housing
+      .col.text-center#filterArea.p-3
+    .row.border.m-3
+      .col-4.text-center.p-3
+        div#expressionArea
+          button.btn.btn-info.w-100.m-1#createExpression Create an Expression
+        button.btn.btn-secondary.w-100.m-1(type="button" data-toggle="modal" data-target="#animationOptionsModal") Animation Options
+        button.btn.btn-warning.w-100.m-1#clearColors Clear Colors
+        
+      .col-4.text-center.p-3
+        h3 Selected Counties
+        div.border.text-center#selectedCounties
+      .col-4.text-center.p-3
+        h3 Descriptions
+        div.dropdown
+          button.btn.btn-primary.w-100.m-1.dropdown-toggle(type="button" data-toggle="dropdown") Add Descriptions
+            span.caret
+          div.dropdown-menu
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['population', 'statePopulation']);") State Population
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['population', 'statePopulationDensity']);") State Population Density
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['population', 'countyPopulation']);") County Population
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['population', 'countyPopulationDensity']);") County Population Density
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['covid', 'cases']);") COVID-19 Cases By County
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['covid', 'deaths']);") COVID-19 Deaths By County
+            a.dropdown-item.desc() COVID-19 Something
+            a.dropdown-item.desc() COVID-19 Something
+            a.dropdown-item.desc(onclick="addDescription(this.innerHTML, ['covid', 'newCases']);") COVID-19 New Cases
+            a.dropdown-item.desc() Governor
+            a.dropdown-item.desc() House Representatives
+            a.dropdown-item.desc() Senators
+        div.border.text-center#selectedDescriptions
+        
 
-  script(src="./js/loadstates.js")
-  //- script(src="./js/redblue.js")
-  script(src="./js/addStates.js")
-  script(src="./js/colorStates.js")
+  div.modal.fade#animationOptionsModal(tabindex="-1" role="dialog" aria-labelledby="animationModalLabel" aria-hidden="true")
+    div.modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          h5.modal-title#animationModalLabel Animation Options
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+        .modal-body
+          div.row
+            div.col.text-center
+              h4.text-center Animation Angle
+              div.m-auto#slider
+            .col.text-center
+              h4.text-center Animation Color
+              input.form-control.h-100(type="color" value="#000000" id="colorChooser")
+        .modal-footer
+          button.btn.btn-secondary(type="button" data-dismiss="modal") Save
+
+        
+  script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+  script(src="./js/countyData.json")
+  script(src="./js/mapdata.js")
+  script(src="./js/countymap.js")
   script(src="./js/select.js")
-  script(src="./js/makeExpression.js")
+  script(src="./js/filter.js")
