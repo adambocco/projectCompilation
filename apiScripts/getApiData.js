@@ -15,6 +15,7 @@ let covidDataByCounty = {};
 let censusDataByState = {};
 let popDataByCounty = {};
 let stateByCounty = {};
+let housingDataByCounty = {};
 let mapFips = Object.keys(fips.countyNameFromFips);
 
 let stateNames = {
@@ -218,6 +219,17 @@ const loadCountyPop = async function () {
     } catch (err) { console.log(err); }
 };
 
+const loadCountyHousing = async function () {
+    try {
+        let countyPopResults = await axios.get('https://api.census.gov/data/2019/pep/housing?get=DATE_CODE,NAME,HUEST&for=county:*');
+        countyPopResults.data.forEach((value) => {
+            let fips = value[3]+value[4];
+            mapFips.includes(fips) && (housingDataByCounty[fips] = value);
+        })
+    } catch (err) { console.log(err); }
+};
+
+
 (async () => {
     await loadCongress();
     await loadCountyCovid();
@@ -225,6 +237,7 @@ const loadCountyPop = async function () {
     await loadCensus();
     await loadCivics();
     await loadCountyPop();
+    await loadCountyHousing();
 
     let countyData = {};
     let stateData = {};
@@ -237,9 +250,9 @@ const loadCountyPop = async function () {
             countyData[countyFip]["stateShort"] = stateByCounty[countyFip];
             countyData[countyFip]["stateLong"] = stateNames[stateByCounty[countyFip]];
             countyData[countyFip]["house"] = [];
-            console.log("statetag:::", stateByCounty[countyFip]);
-            console.log('housedata:::',houseDataByState[stateByCounty[countyFip]]);
-            console.log('countyfip:::: ', countyFip);
+            // console.log("statetag:::", stateByCounty[countyFip]);
+            // console.log('housedata:::',houseDataByState[stateByCounty[countyFip]]);
+            // console.log('countyfip:::: ', countyFip);
             houseDataByState[stateByCounty[countyFip]].forEach(value=> {
                 let rep = {
                     "name":(value.first_name+value.last_name),
@@ -267,13 +280,13 @@ const loadCountyPop = async function () {
                    "statePopulationDensity": censusDataByState[stateByCounty[countyFip]][1]
             };
             countyData[countyFip]["covid"] = covidDataByCounty[countyFip];
+            countyData[countyFip]["housing"] = {
+                "housingUnitEstimate": housingDataByCounty[countyFip][2]
+            };
         } catch (err) {console.log(err)}
-        
     })
-
     fs.writeFile('countyData.json', JSON.stringify(countyData), function (err) {
         if (err) throw err;
         console.log('Replaced!');
       });
-
 })();
