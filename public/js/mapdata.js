@@ -3,8 +3,8 @@ var simplemaps_countymap_mapdata={
   main_settings: {
     //General settings
 		width: "responsive", //or 'responsive'
-    background_color: "#FFFFFF",
-    background_transparent: "no",
+    background_color: "white",
+    background_transparent: "yes",
     popups: "detect",
     
 		//State defaults
@@ -81,9 +81,7 @@ var simplemaps_countymap_mapdata={
   state_specific: { // County keys are FIPS codes
                     // Reference : https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt
     "10001": {
-      name: "Kent",
-      color:'red',
-      description:'doozie'
+      name: "Kent"
     },
     "10003": {
       name: "New Castle"
@@ -92,8 +90,7 @@ var simplemaps_countymap_mapdata={
       name: "Sussex"
     },
     "11001": {
-      name: "District of Columbia",
-      doozie: 'yeee'
+      name: "District of Columbia"
     },
     "12001": {
       name: "Alachua"

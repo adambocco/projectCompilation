@@ -1,8 +1,23 @@
+html {
+  position: relative;
+  top:-1000;
+  background-image: url("../img/topography.png");
+}
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: relative;
+  top:-1000;
+  background-image: url("../img/topography.png");
 }
 
 a {
   color: #00B7FF;
+}
+#title {
+  background: radial-gradient(rgba(147, 207, 233, 0.6), rgba(191, 226, 247, 0.3), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+}
+
+.bg-color {
+  background-color: rgba(170, 195, 206, 0.4);
 }

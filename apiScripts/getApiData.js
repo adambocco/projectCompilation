@@ -1,12 +1,20 @@
 
-const fips = require('./countyFips');
+const { fipsToCountyName } = require('./fipsToCountyName');
+const { fipsToStateName } = require('./fipsToStateName');
+const { stateCodeToFips } = require('./stateCodeToFips')
+const { stateNameToFips } = require('./stateNameToFips');
+const { stateCodeToName } = require('./stateCodeToName')
+const { stateNameToCode } = require('./stateNameToCode');
+
 const axios = require('axios');
 const fs = require('fs');
 const Papa = require('papaparse');
+
 let noaakey = process.env.NOAAKEY;
 let ppkey = process.env.PPKEY;
 let gckey = process.env.GCKEY;
 let cankey = process.env.CANKEY;
+
 let houseDataByState = {};
 let senateDataByState = {};
 let governorDataByState = {};
@@ -14,114 +22,10 @@ let covidDataByState = {};
 let covidDataByCounty = {};
 let censusDataByState = {};
 let popDataByCounty = {};
-let stateByCounty = {};
+let stateFipsByCountyFips = {};
 let housingDataByCounty = {};
-let mapFips = Object.keys(fips.countyNameFromFips);
 
-let stateNames = {
-    AK: "Alaska",
-    AL: "Alabama",
-    AR: "Arkansas",
-    AZ: "Arizona",
-    CA: "California",
-    CO: "Colorado",
-    CT: "Connecticut",
-    DE: "Delaware",
-    FL: "Florida",
-    GA: "Georgia",
-    HI: "Hawaii",
-    IA: "Iowa",
-    ID: "Idaho",
-    IL: "Illinois",
-    IN: "Indiana",
-    KS: "Kansas",
-    KY: "Kentucky",
-    LA: "Louisiana",
-    MA: "Massachusetts",
-    MD: "Maryland",
-    ME: "Maine",
-    MI: "Michigan",
-    MN: "Minnesota",
-    MO: "Missouri",
-    MS: "Mississippi",
-    MT: "Montana",
-    NC: "North Carolina",
-    ND: "North Dakota",
-    NE: "Nebraska",
-    NH: "New Hampshire",
-    NJ: "New Jersey",
-    NM: "New Mexico",
-    NV: "Nevada",
-    NY: "New York",
-    OH: "Ohio",
-    OK: "Oklahoma",
-    OR: "Oregon",
-    PA: "Pennsylvania",
-    RI: "Rhode Island",
-    SC: "South Carolina",
-    SD: "South Dakota",
-    TN: "Tennessee",
-    TX: "Texas",
-    UT: "Utah",
-    VA: "Virginia",
-    VT: "Vermont",
-    WA: "Washington",
-    WI: "Wisconsin",
-    WV: "West Virginia",
-    WY: "Wyoming"
-};
-let stateFipsCodes = {
-    '01': "ALABAMA",
-    '02': "ALASKA",
-    '04': "ARIZONA",
-    '05': "ARKANSAS",
-    '06': "CALIFORNIA",
-    '08': "COLORADO",
-    '09': "CONNECTICUT",
-    '10': "DELAWARE",
-    '12': "FLORIDA",
-    '13': "GEORGIA",
-    '15': "HAWAII",
-    '16': "IDAHO",
-    '17': "ILLINOIS",
-    '18': "INDIANA",
-    '19': "IOWA",
-    '20': "KANSAS",
-    '21': "KENTUCKY",
-    '22': "LOUISIANA",
-    '23': "MAINE",
-    '24': "MARYLAND",
-    '25': "MASSACHUSETTS",
-    '26': "MICHIGAN",
-    '27': "MINNESOTA",
-    '28': "MISSISSIPPI",
-    '29': "MISSOURI",
-    '30': "MONTANA",
-    '31': "NEBRASKA",
-    '32': "NEVADA",
-    '33': "NEW HAMPSHIRE",
-    '34': "NEW JERSEY",
-    '35': "NEW MEXICO",
-    '36': "NEW YORK",
-    '37': "NORTH CAROLINA",
-    '38': "NORTH DAKOTA",
-    '39': "OHIO",
-    '40': "OKLAHOMA",
-    '41': "OREGON",
-    '42': "PENNSYLVANIA",
-    '44': "RHODE ISLAND",
-    '45': "SOUTH CAROLINA",
-    '46': "SOUTH DAKOTA",
-    '47': "TENNESSEE",
-    '48': "TEXAS",
-    '49': "UTAH",
-    '50': "VERMONT",
-    '51': "VIRGINIA",
-    '53': "WASHINGTON",
-    '54': "WEST VIRGINIA",
-    '55': "WISCONSIN",
-    '56': "WYOMING"
-}
+
 function swap(json) {
     let r = {};
     for (let key in json) {
@@ -129,7 +33,6 @@ function swap(json) {
     }
     return r;
 }
-let stateNamesRev = swap(stateNames);
 
 const loadCongress = async function () {
     let houseResults, senateResults;
@@ -146,13 +49,13 @@ const loadCongress = async function () {
     senateResults = senateResults.data.results[0].members;
     houseResults = houseResults.data.results[0].members;
     senateResults.forEach((value) => {
-        if (Object.keys(stateNames).includes(value.state)) {
-            senateDataByState[value.state] = (senateDataByState[value.state] == null ? [value] : senateDataByState[value.state].concat(value));
+        if (Object.keys(stateCodeToName).includes(value.state)) {
+            senateDataByState[stateCodeToFips[value.state]] = (senateDataByState[stateCodeToFips[value.state]] == null ? [value] : senateDataByState[stateCodeToFips[value.state]].concat(value));
         }
     })
     houseResults.forEach((value) => {
-        if (Object.keys(stateNames).includes(value.state)) {
-            houseDataByState[value.state] = (houseDataByState[value.state] == null ? [value] : houseDataByState[value.state].concat(value));
+        if (Object.keys(stateCodeToName).includes(value.state)) {
+            houseDataByState[stateCodeToFips[value.state]] = (houseDataByState[stateCodeToFips[value.state]] == null ? [value] : houseDataByState[stateCodeToFips[value.state]].concat(value));
         }
     })
 };
@@ -160,8 +63,8 @@ const loadStateCovid = async function () {
     try {
         let covidResults = await axios.get("https://api.covidtracking.com/v1/states/current.json");
         covidResults.data.forEach((value) => {
-            if (Object.keys(stateNames).includes(value.state)) {
-                covidDataByState[value.state] = value;
+            if (Object.keys(stateCodeToName).includes(value.state)) {
+                covidDataByState[stateCodeToFips[value.state]] = value;
             }
         })
     } catch (err) { console.log(err) }
@@ -171,27 +74,28 @@ const loadCountyCovid = async function () {
     try {
         let covidResults = await axios.get("https://api.covidactnow.org/v2/counties.csv?apiKey="+cankey);
         covidResults = Papa.parse(covidResults.data);
-        for (let l = 0; l < covidResults.data.length; l++) {
-            let value = covidResults.data[l.toString()];
-            if (Object.values(mapFips).includes(value['0'])) {
-                covidDataByCounty[value['0']] = {
-                    "cases":value['23'],
-                    "deaths":value['24'],
-                    "positiveTests":value['25'],
-                    "negativeTests":value['26'],
-                    "newCases": value['36'],
-                    "lastUpdatedDate":value['37']
+        for (let l = 1; l < covidResults.data.length; l++) {
+            let value = covidResults.data[l];
+            if (Object.keys(fipsToCountyName).includes(value[0])) {
+                covidDataByCounty[value[0]] = {
+                    "cases":value[23],
+                    "deaths":value[24],
+                    "testPositivityRatio":value[9],
+                    "caseDensity":value[11],
+                    "infectionRate": value[13],
+                    "newCases": value[36],
+                    "lastUpdatedDate":value[37]
                 };
             }
         }
     } catch (err) {console.log(err)};
 };
 
-const loadCensus = async function () {
+const loadStatePop = async function () {
     try {
         let censusResults = await axios.get('https://api.census.gov/data/2019/pep/population?get=DATE_DESC,DENSITY,POP,NAME,STATE&for=state');
         censusResults.data.forEach((value) => {
-            Object.keys(stateNames).includes(stateNamesRev[value[3]]) && (censusDataByState[stateNamesRev[value[3]]] = value);
+            Object.keys(fipsToStateName).includes(value[4]) && (censusDataByState[value[4]] = value);
         })
     } catch (err) { console.log(err); }
 };
@@ -199,11 +103,11 @@ const loadCensus = async function () {
 const loadCivics = async function () {
     try {
         await (async () => {
-            for (let i = 0; i < Object.keys(stateNames).length; i++) {
-                let stateKey = Object.keys(stateNames)[i];
-                let civicsResults = await axios.get('https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3A' + stateKey.toLowerCase() + '?roles=legislatorUpperBody&roles=headOfGovernment&key=' + gckey);
+            for (let i = 0; i < Object.keys(stateCodeToName).length; i++) {
+                let stateCode = Object.keys(stateCodeToName)[i];
+                let civicsResults = await axios.get('https://civicinfo.googleapis.com/civicinfo/v2/representatives/ocd-division%2Fcountry%3Aus%2Fstate%3A' + stateCode.toLowerCase() + '?roles=legislatorUpperBody&roles=headOfGovernment&key=' + gckey);
                 let governor = civicsResults.data.officials[2];
-                governorDataByState[stateKey] = governor;
+                governorDataByState[stateCodeToFips[stateCode]] = governor;
             }
         })()
     } catch (err) { console.log(err); }
@@ -214,9 +118,11 @@ const loadCountyPop = async function () {
         let countyPopResults = await axios.get('https://api.census.gov/data/2019/pep/population?get=NAME,GEO_ID,POP,DENSITY&for=county:*');
         countyPopResults.data.forEach((value) => {
             let fips = value[1].substr(value[1].length - 5);
-            mapFips.includes(fips) && (popDataByCounty[fips] = value) && (stateByCounty[fips] = stateNamesRev[popDataByCounty[fips][0].split(', ')[1]]);
+            Object.keys(fipsToCountyName).includes(fips) && (popDataByCounty[fips] = value) && (stateFipsByCountyFips[fips] = popDataByCounty[fips][4]);
         })
-    } catch (err) { console.log(err); }
+    } catch (err) { 
+        console.log(err);
+     }
 };
 
 const loadCountyHousing = async function () {
@@ -224,7 +130,7 @@ const loadCountyHousing = async function () {
         let countyPopResults = await axios.get('https://api.census.gov/data/2019/pep/housing?get=DATE_CODE,NAME,HUEST&for=county:*');
         countyPopResults.data.forEach((value) => {
             let fips = value[3]+value[4];
-            mapFips.includes(fips) && (housingDataByCounty[fips] = value);
+            Object.keys(fipsToCountyName).includes(fips) && (housingDataByCounty[fips] = value);
         })
     } catch (err) { console.log(err); }
 };
@@ -234,7 +140,7 @@ const loadCountyHousing = async function () {
     await loadCongress();
     await loadCountyCovid();
     await loadStateCovid();
-    await loadCensus();
+    await loadStatePop();
     await loadCivics();
     await loadCountyPop();
     await loadCountyHousing();
@@ -242,51 +148,109 @@ const loadCountyHousing = async function () {
     let countyData = {};
     let stateData = {};
 
-    mapFips.forEach(countyFip => {
+    Object.keys(fipsToCountyName).forEach(countyFip => {
         try {
             countyData[countyFip] = {};
-            countyData[countyFip]["name"] = fips.countyNameFromFips[countyFip].name;
+            countyData[countyFip]["name"] = fipsToCountyName[countyFip].name;
             countyData[countyFip]["fip"] = countyFip;
-            countyData[countyFip]["stateShort"] = stateByCounty[countyFip];
-            countyData[countyFip]["stateLong"] = stateNames[stateByCounty[countyFip]];
-            countyData[countyFip]["house"] = [];
-            // console.log("statetag:::", stateByCounty[countyFip]);
-            // console.log('housedata:::',houseDataByState[stateByCounty[countyFip]]);
-            // console.log('countyfip:::: ', countyFip);
-            houseDataByState[stateByCounty[countyFip]].forEach(value=> {
-                let rep = {
-                    "name":(value.first_name+value.last_name),
-                    "party":value.party
-                };
-                countyData[countyFip]["house"].push(rep);
-            })
-            countyData[countyFip]["senate"] = [];
-            senateDataByState[stateByCounty[countyFip]].forEach(value=> {
-                let sen = {
-                    "name": (value.first_name+value.last_name),
-                    "party": value.party
-                };
-                countyData[countyFip]["senate"].push(sen);
-            })
-            let governorData = governorDataByState[stateByCounty[countyFip]]
-            countyData[countyFip]["governor"] = {
-                "name":governorData.name,
-                "party": governorData.party[0]
-            };
+            countyData[countyFip]["stateFip"] = stateFipsByCountyFips[countyFip];
             countyData[countyFip]["population"] = {
                 "countyPopulation": popDataByCounty[countyFip][2],
-                 "countyPopulationDensity": popDataByCounty[countyFip][3],
-                  "statePopulation": censusDataByState[stateByCounty[countyFip]][2],
-                   "statePopulationDensity": censusDataByState[stateByCounty[countyFip]][1]
+                "countyPopulationDensity": popDataByCounty[countyFip][3],
             };
+            console.log(covidDataByCounty[countyFip])
             countyData[countyFip]["covid"] = covidDataByCounty[countyFip];
             countyData[countyFip]["housing"] = {
                 "housingUnitEstimate": housingDataByCounty[countyFip][2]
             };
         } catch (err) {console.log(err)}
     })
+
+    Object.keys(fipsToStateName).forEach(stateFip=> {
+        try{
+            stateData[stateFip] = {};
+            stateData[stateFip]["longName"] = fipsToStateName[stateFip];
+            stateData[stateFip]["shortName"] = stateNameToCode[stateData[stateFip]["longName"]];
+            stateData[stateFip]["population"] = {                  
+                "statePopulation": censusDataByState[stateFip][2],
+                "statePopulationDensity": censusDataByState[stateFip][1]
+            };
+            stateData[stateFip]["house"] = [];
+            houseDataByState[stateFip].forEach(value=> {
+                let rep = {
+                    "name":(value.first_name+" "+value.last_name),
+                    "party":value.party
+                };
+                stateData[stateFip]["house"].push(rep);
+            })
+            stateData[stateFip]["senate"] = [];
+            senateDataByState[stateFip].forEach(value=> {
+                let rep = {
+                    "name": (value.first_name+" "+value.last_name),
+                    "party": value.party
+                };
+                stateData[stateFip]["senate"].push(rep);
+            })
+            let governorData = governorDataByState[stateFip]
+            stateData[stateFip]["governor"] = {
+                "name":governorData.name,
+                "party": governorData.party[0]
+            };
+        }catch(err) {console.log(err)}
+    })
+
+
     fs.writeFile('countyData.json', JSON.stringify(countyData), function (err) {
         if (err) throw err;
-        console.log('Replaced!');
+        console.log('Replaced Counties!');
       });
+    fs.writeFile('stateData.json', JSON.stringify(stateData), function (err) {
+    if (err) throw err;
+        console.log('Replaced States!');
+    });
 })();
+
+
+// CURRENT FORMAT 
+//      -COUNTY
+// {
+//     name: 'New Haven',
+//     fip: '09009',
+//     stateFip: '09',
+//     population: {
+//       countyPopulation: '854757',
+//       countyPopulationDensity: '1413.95822970000000'
+//     },
+//     covid: {
+//       cases: '30089',
+//       deaths: '1259',
+//       testPositivityRatio: '0.111',
+//       caseDensity: '58.49615738742122',
+//       infectionRate: '1.0696144268',
+//       newCases: '688',
+//       lastUpdatedDate: '2020-12-02'
+//     },
+//     housing: { housingUnitEstimate: '368670' }
+//   }
+//      -STATE
+
+// {
+//     longName: 'Connecticut',
+//     shortName: 'CT',
+//     population: {
+//       statePopulation: '3565287',
+//       statePopulationDensity: '736.22104642000000'
+//     },
+//     house: [
+//       { name: 'Joe Courtney', party: 'D' },
+//       { name: 'Rosa DeLauro', party: 'D' },
+//       { name: 'Jahana Hayes', party: 'D' },
+//       { name: 'Jim Himes', party: 'D' },
+//       { name: 'John Larson', party: 'D' }
+//     ],
+//     senate: [
+//       { name: 'Richard Blumenthal', party: 'D' },
+//       { name: 'Christopher Murphy', party: 'D' }
+//     ],
+//     governor: { name: 'Ned Lamont', party: 'D' }
+//   }
