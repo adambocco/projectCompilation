@@ -1,13 +1,6 @@
-html {
-  position: relative;
-  top:-1000;
-  background-image: url("../img/topography.png");
-}
-body {
-  padding: 50px;
+
+html, body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  position: relative;
-  top:-1000;
   background-image: url("../img/topography.png");
 }
 

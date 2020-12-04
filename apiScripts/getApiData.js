@@ -254,3 +254,47 @@ const loadCountyHousing = async function () {
 //     ],
 //     governor: { name: 'Ned Lamont', party: 'D' }
 //   }
+
+// API IDEAS:
+
+// Total employed
+// https://api.census.gov/data/2019/acs/acs1/subject?get=NAME,S2301_C01_001E&for=county:*&in=state:*
+
+// Unemployment rate
+// https://api.census.gov/data/2019/acs/acs1/subject?get=NAME,S2301_C04_001E&for=county:*&in=state:*
+
+// In poverty
+// https://api.census.gov/data/2019/acs/acs1/subject?get=NAME,S1701_C02_001E&for=county:*&in=state:*
+
+// In poverty population sampled ^^^
+// S1701_C01_001E
+
+let censusSppList = {
+
+
+}
+
+let censusSubjectList = {
+
+    'sexAndAGeTotal': 'S0201_006E',
+    'male': 'S0201_007E',
+    'female': 'S0201_008E',
+    'underFive': 'S0201_009E',
+    'fiveToSeventeen': 'S0201_010E',
+    'eighteenToTwentyFour': 'S0201_011E',
+    'twentyFiveToThirtyFour': 'S0201_012E',
+    'thirtyFiveToForrtyFour': 'S0201_013E',
+    'fortyFiveToFiftyFour': 'S0201_014E',
+    'fiftyFiveToSixtyFour': 'S0201_015E',
+    'sixtyFiveToSeventyFour': 'S0201_016E',
+    'seventyFiveAndOver': 'S0201_017E'
+
+}
+
+
+Sex Total
+S0201_006E
+
+Age
+
+Age Total

@@ -42,7 +42,7 @@ document.querySelector('#animationSave').addEventListener("click", (ev) => {
 
 // TODO! clear colors should color by animation color
 document.querySelector('#clearColors').addEventListener("click", () => {
-    describeCounties();
+    describeCounties([]);
     Object.keys(simplemaps_countymap_mapdata.state_specific).forEach(v => {
         simplemaps_countymap_mapdata.state_specific[v].color = `rgb(${200},${200},${200})`;
     })
@@ -87,6 +87,7 @@ const describeCounties = function (oneTimeDescriptions) {
             }
         }
     })
+    
     oneTimeDescriptions.forEach(v=> {
         oneTimeDescriptionFunctions.push(extractDescriptionFunction(v))
     })
@@ -184,16 +185,16 @@ document.querySelector('#createExpression').addEventListener("click", () => {
                         Numerator
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population: ',['population', 'countyPopulation'],'numerators');">County Population</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population Density: ',['population', 'countyPopulationDensity'],'numerators');">County Population Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population: ',['population', 'statePopulation'],'numerators');">State Population</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population Density: ',['population', 'statePopulationDensity'],'numerators');">State Population Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Cases: ',['covid', 'cases'],'numerators');">COVID-19 Cases</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Deaths: ',['covid', 'deaths'],'numerators');">COVID-19 Deaths</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Test Positivity Ratio: ',['covid', 'testPositivityRatio'],'numerators');">COVID-19 Test Positivity Ratio</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Case Density: ', ['covid', 'caseDensity'],'numerators');">COVID-19 Case Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Infection Rate: ', ['covid', 'infectionRate'],'numerators');">COVID-19 Infection Rate</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 New Cases: ',['covid', 'newCases'],'numerators');">COVID-19 New Cases</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population: ',['population', 'countyPopulation'],true,'numerators');">County Population</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population Density: ',['population', 'countyPopulationDensity'],true,'numerators');">County Population Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population: ',['population', 'statePopulation'],false,'numerators');">State Population</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population Density: ',['population', 'statePopulationDensity'],false,'numerators');">State Population Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Cases: ',['covid', 'cases'],true,'numerators');">COVID-19 Cases</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Deaths: ',['covid', 'deaths'],true,'numerators');">COVID-19 Deaths</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Test Positivity Ratio: ',['covid', 'testPositivityRatio'],true,'numerators');">COVID-19 Test Positivity Ratio</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Case Density: ', ['covid', 'caseDensity'],true,'numerators');">COVID-19 Case Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Infection Rate: ', ['covid', 'infectionRate'],true,'numerators');">COVID-19 Infection Rate</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 New Cases: ',['covid', 'newCases'],true,'numerators');">COVID-19 New Cases</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -201,16 +202,16 @@ document.querySelector('#createExpression').addEventListener("click", () => {
                         Denominator
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population: ',['population', 'countyPopulation'], 'denominators');">County Population</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population Density: ',['population', 'countyPopulationDensity'], 'denominators');">County Population Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population: ',['population', 'statePopulation'], 'denominators');">State Population</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population Density: ',['population', 'statePopulationDensity'], 'denominators');">State Population Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Cases: ',['covid', 'cases'], 'denominators');">COVID-19 Cases</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Deaths: ',['covid', 'deaths'], 'denominators');">COVID-19 Deaths</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Test Positivity Ratio: ',['covid', 'testPositivityRatio'],'denominators');">COVID-19 Test Positivity Ratio</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Case Density: ', ['covid', 'caseDensity'],'denominators');">COVID-19 Case Density</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Infection Rate: ', ['covid', 'infectionRate'],'denominators');">COVID-19 Infection Rate</a>
-                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 New Cases: ',['covid', 'newCases'], 'denominators');">COVID-19 New Cases</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population: ',['population', 'countyPopulation'],true, 'denominators');">County Population</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('County Population Density: ',['population', 'countyPopulationDensity'],true, 'denominators');">County Population Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population: ',['population', 'statePopulation'],false, 'denominators');">State Population</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('State Population Density: ',['population', 'statePopulationDensity'],false, 'denominators');">State Population Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Cases: ',['covid', 'cases'],true, 'denominators');">COVID-19 Cases</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Deaths: ',['covid', 'deaths'],true, 'denominators');">COVID-19 Deaths</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Test Positivity Ratio: ',['covid',true, 'testPositivityRatio'], true,'denominators');">COVID-19 Test Positivity Ratio</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Case Density: ', ['covid', 'caseDensity'],true,'denominators');">COVID-19 Case Density</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 Infection Rate: ', ['covid', 'infectionRate'],true,'denominators');">COVID-19 Infection Rate</a>
+                        <a class="dropdown-item" onclick="addNumeratorOrDenominator('COVID-19 New Cases: ',['covid', 'newCases'],true, 'denominators');">COVID-19 New Cases</a>
 
                     </div>
                 </div>
@@ -236,9 +237,9 @@ document.querySelector('#createExpression').addEventListener("click", () => {
 })
 
 // Create an expression helper functions
-const addNumeratorOrDenominator = function (statName, keys, numOrDenom) {
+const addNumeratorOrDenominator = function (statName, keys, isCounty, numOrDenom) {
     let product = numOrDenom == "numerators" ? numerators : denominators;
-    product.push({ 'tagName': statName, 'keys': keys });
+    product.push({ 'tagName': statName, 'keys': keys, 'isCounty':isCounty});
     let productArea = document.querySelector('#' + numOrDenom)
     if (productArea.innerHTML == "") {
         productArea.innerHTML = statName;
@@ -257,29 +258,29 @@ const clearExpression = function () {
 const executeExpression = function () {
     let oneTimeDescriptions = [];
     denominators.forEach(v => {
-        oneTimeDescriptions.push({ 'keys': v.keys, 'tagName': v.tagName })
+        v.extraction = extractDescriptionFunction(v);
+        oneTimeDescriptions.push(v)
     })
     numerators.forEach(v => {
-        oneTimeDescriptions.push({ 'keys': v.keys, 'tagName': v.tagName })
+        v.extraction = extractDescriptionFunction(v);
+        oneTimeDescriptions.push(v)
     })
     countyDataArray.forEach((value) => {
         try {
             let mulNum = 1;
             let mulDenom = 1;
-            simplemaps_countymap_mapdata.state_specific[value.fip].description = "";
             numerators.forEach((value2) => {
                 try {
-                    let statValue = parseFloat(value[value2.keys[0]][value2.keys[1]]);
+                    let statValue = parseFloat(value2.extraction(value.fip))
                     mulNum *= statValue;
                 } catch (err) { console.log(err) }
             })
             denominators.forEach((value2) => {
                 try {
-                    let statValue = parseFloat(value[value2.keys[0]][value2.keys[1]]);
+                    let statValue = parseFloat(value2.extraction(value.fip))
                     mulDenom *= statValue;
                 } catch (err) { console.log(err) }
             })
-
             let exprValue;
             if (parseInt(mulDenom) == 0) {
                 exprValue = mulNum;
@@ -287,7 +288,7 @@ const executeExpression = function () {
             value['expression'] = { 'expressionValue': exprValue };
         } catch (err) { console.log(err) }
     })
-    oneTimeDescriptions.push({ 'tagName': "Expression Value: ", 'keys': ['expression', 'expressionValue'] })
+    oneTimeDescriptions.push({ 'tagName': "Expression Value: ", 'keys': ['expression', 'expressionValue'], 'isCounty':true })
     countyDataArray.sort((a, b) => ((a.expression == null || isNaN(a.expression.expressionValue)) ? 1 : (b.expression == null || isNaN(a.expression.expressionValue)) ? -1 : (a.expression.expressionValue == b.expression.expressionValue) ? 0 : (a.expression.expressionValue > b.expression.expressionValue) ? 1 : -1));
     describeCounties(oneTimeDescriptions);
     setColorsByRank();
