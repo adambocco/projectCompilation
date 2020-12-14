@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const bodyParser = require("body-parser");
 
 const stateController = require('../controllers/stateController')
 
@@ -13,5 +14,6 @@ router.get('/loadStates', function(req, res, next) {
   console.log("GETTING LOAD STATES")
   stateController.state_list(req, res)
 });
+
 
 module.exports = router;

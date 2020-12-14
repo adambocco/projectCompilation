@@ -7,6 +7,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
+
 // Display list of all Authors.
 exports.state_list = function(req, res) {
     console.log("CONTROLLER CALLED")
@@ -20,7 +21,7 @@ exports.state_list = function(req, res) {
 };
 
 // Display detail page for a specific Author.
-exports.state_detail = function(req, res) {
+exports.create_user= function(req, res) {
     res.send('NOT IMPLEMENTED: Author detail: ' + req.params.id);
 };
 
