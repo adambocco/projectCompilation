@@ -6,13 +6,11 @@ const stateController = require('../controllers/stateController')
 
 
 router.get('/', function(req, res, next) {
-  console.log("GETTING /")
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'API Map' });
 });
 
-router.get('/loadStates', function(req, res, next) {
-  console.log("GETTING LOAD STATES")
-  stateController.state_list(req, res)
+router.get('/pathfinder', function(req, res, next) {
+  res.render('pathfinder', { title: 'Pathfinder' });
 });
 
 
