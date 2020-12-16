@@ -55,21 +55,23 @@ function finishDijkstra() {
 }
 
 function setupDijkstra() {
+    inQueue = [];
+    pq = [];
+    pi = [];
     for (let i = 0; i < coords.length; i++) {
         pq.push([])
         pi.push([])
         inQueue.push([])
-        blocked.push([])
         for (let j = 0; j < coords[0].length; j++) {
             if (start[0] == i && start[1] == j) {
                 pq[i].push(0)
                 pi[i].push(null);
+                inQueue[i].push(false)
                 continue
             }
             pq[i].push(99999)
             pi[i].push(null)
             inQueue[i].push(false)
-            blocked[i].push(false)
         }
     }
     ltc = [50,250,100]

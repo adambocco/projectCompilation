@@ -49,8 +49,9 @@ let par = null;
 let fastDijkstra = true;
 
 function setup() {
+  textSize(20)
   let c = createCanvas(700, 700);
-  c.parent('pathfinderDiv')
+  // c.parent('pathfinderDiv')
   setupSquares()
   frameRate(60)
   dijkstraButton = createButton('Dijkstra')
@@ -74,8 +75,12 @@ function setup() {
   drawBorderButton.mousePressed(drawBorder)
 
   eraseBorderButton = createButton('Erase Border')
-  eraseBorderButton.position(550, 60)
+  eraseBorderButton.position(550, 37)
   eraseBorderButton.mousePressed(eraseBorder)
+  
+  resetBorderButton = createButton('Reset Border')
+  resetBorderButton.position(550, 66)
+  resetBorderButton.mousePressed(resetBorder)
 
   speedSlider = createSlider(0, 100, 60, 1)
   speedSlider.position(100,709) 
@@ -91,6 +96,10 @@ function draw() {
   if (start) {
     fill(...startColor)
     square(coords[start[0]][start[1]][0], coords[start[0]][start[1]][1], sqSize)
+  }
+  if (end) {
+    fill(...endColor)
+    square(coords[end[0]][end[1]][0], coords[end[0]][end[1]][1], sqSize)
   }
   if (currentAlgorithm) {
     currentAlgorithm()
@@ -118,14 +127,11 @@ function draw() {
 }
 
 function reset() {
-  start = [5, 13];
-  end = [24, 13];
-  pq = [];
-  pi = [];
   colors = [];
   coords = [];
   inQueue = [];
-  blocked = [];
+  pq = [];
+  pi = [];
   dijkstraWhile = false;
   dijkstraFor = false;
   dijkstraDone = false
@@ -136,7 +142,18 @@ function reset() {
   rVar = 255;
   gVar = 255;
   bVar = 255;
-  setupSquares()
+  resetSquares()
+}
+
+function resetBorder() {
+  for (let a = 0; a < blocked.length; a++) {
+    for (let b = 0; b < blocked[a].length; b++) {
+      if (blocked[a][b]) {
+        blocked[a][b] = false;
+        colors[a][b] = baseColor;
+      }
+    }
+  }
 }
 
 function selectSquares() {
@@ -236,6 +253,25 @@ function setupSquares() {
       colors[x].push(baseColor)
       coords[x].push([i, j])
       blocked[x].push(false)
+      y++;
+    }
+    x++;
+  }
+}
+function resetSquares() {
+  let x = 0
+  let y = 0;
+  for (let i = leftPadding; i < width - rightPadding; i += sqSize) {
+    colors.push([])
+    coords.push([])
+    y = 0
+    for (let j = topPadding; j < height - bottomPadding; j += sqSize) {
+      if (blocked[x][y]) {
+        colors[x].push(blockedColor)
+      }else {
+        colors[x].push(baseColor)
+      }
+      coords[x].push([i, j])
       y++;
     }
     x++;
