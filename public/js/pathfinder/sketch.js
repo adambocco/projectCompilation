@@ -49,42 +49,39 @@ let par = null;
 let fastDijkstra = true;
 
 function setup() {
-  createCanvas(700, 700);
+  let c = createCanvas(700, 700);
+  c.parent('pathfinderDiv')
   setupSquares()
   frameRate(60)
   dijkstraButton = createButton('Dijkstra')
-  dijkstraButton.position(20, 20)
+  dijkstraButton.position(50, 60)
   dijkstraButton.mousePressed(startDijkstra)
 
   dropStartButton = createButton('Drop Start')
-  dropStartButton.position(120, 20)
+  dropStartButton.position(150, 60)
   dropStartButton.mousePressed(dropStart)
 
   dropEndButton = createButton('Drop End')
-  dropEndButton.position(220, 20)
+  dropEndButton.position(250, 60)
   dropEndButton.mousePressed(dropEnd)
 
   dropEndButton = createButton('Reset')
-  dropEndButton.position(320, 20)
+  dropEndButton.position(350, 60)
   dropEndButton.mousePressed(reset)
 
   drawBorderButton = createButton('Draw Border')
-  drawBorderButton.position(420, 20)
+  drawBorderButton.position(450, 60)
   drawBorderButton.mousePressed(drawBorder)
 
   eraseBorderButton = createButton('Erase Border')
-  eraseBorderButton.position(520, 20)
+  eraseBorderButton.position(550, 60)
   eraseBorderButton.mousePressed(eraseBorder)
 
   speedSlider = createSlider(0, 100, 60, 1)
-  speedSlider.position(100,660) 
+  speedSlider.position(100,709) 
 
   drawSlider = createSlider(1, 3, 2, 1)
-  drawSlider.position(350,660) 
-
-
-  // colors[start[0]][start[1]] = startColor;
-  // colors[end[0]][end[1]] = endColor;
+  drawSlider.position(350,709) 
 }
 
 function draw() {
