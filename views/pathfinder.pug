@@ -1,7 +1,9 @@
 extends layout
 
 block content
-    #pathfinderDiv
+    #pathfinderDiv.m-5
+    script(src="./js/pathfinder/priorityQueue.js")
     script(src="./js/pathfinder/p5.min.js")
     script(src="./js/pathfinder/dijkstra.js")
+    script(src="./js/pathfinder/bellmanFord.js")
     script(src="./js/pathfinder/sketch.js")

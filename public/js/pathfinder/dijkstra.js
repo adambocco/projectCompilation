@@ -1,10 +1,13 @@
 
+
 function runDijkstra() {
     if (finishingDijkstra) {
+        lastTouched = []
         finishDijkstra()
     } else {
         for (let k = 0; k < processLimit; k++) {
             if (!dijkstraDone) {
+                
                 if (pq[end[0]][end[1]] < 99999) {
                     finishingDijkstra = true
                     par = [end[0], end[1]]
@@ -13,12 +16,26 @@ function runDijkstra() {
                     colors[start[0]][start[1]] = startColor
                 }
                 else if (dijkstraWhile) {
-                    processDijkstra()
+                    u = priorityQueue.dequeue()[0]
+                    if ( !u || u.length==0) { 
+                        cantFindEnd = true;
+                        dijkstraDone = true;
+                        return 
+                    }
+                    colors[u[0]][u[1]] = uColor;
+                    for (let m = 0; m < 3; m++) {
+                        if (uColor[m] > 250 || uColor[m] <3) {
+                            uColorDir[m] = !uColorDir[m]
+                        }
+                        uColorDir[m] ? uColor[m]++:uColor[m]--;
+                    }
+                    dijkstraWhile = false;
+                    dijkstraFor = true;
                 } else if (dijkstraFor) {
                     if (fastDijkstra) {
-                        relaxDijkstraFast()
+                        relaxFast()
                     } else {
-                        relaxDijkstraSlow()
+                        relaxSlow()
                     }
                 }
             } else {
@@ -29,7 +46,25 @@ function runDijkstra() {
 }
 
 function startDijkstra() {
+    if (start==null || end==null) {
+        return
+    }
     setupDijkstra()
+    dijkstra = true;
+    astar = false;
+    dijkstraWhile = true;
+    dijkstraFor = false;
+    dijkstraDone = false;
+    finishingDijkstra = false;
+    currentAlgorithm = runDijkstra;
+}
+function startAstar() {
+    if (start==null || end==null) {
+        return
+    }
+    setupDijkstra()
+    dijkstra = false;
+    astar = true;
     dijkstraWhile = true;
     dijkstraFor = false;
     dijkstraDone = false;
@@ -37,13 +72,13 @@ function startDijkstra() {
     currentAlgorithm = runDijkstra;
 }
 
+
 function finishDijkstra() {
-    console.log("Dijkstra finished")
     let done = true
     if (par[0] != start[0] || par[1] != start[1]) {
         colors[par[0]][par[1]] = [255, 255, 25];
         par = pi[par[0]][par[1]]
-        done=false;
+        done = false;
     }
     colors[par[0]][par[1]] = [255, 255, 255];
     if (done) {
@@ -58,40 +93,37 @@ function setupDijkstra() {
     inQueue = [];
     pq = [];
     pi = [];
+    fromEnd = [];
     for (let i = 0; i < coords.length; i++) {
         pq.push([])
         pi.push([])
+        fromEnd.push([])
         inQueue.push([])
         for (let j = 0; j < coords[0].length; j++) {
             if (start[0] == i && start[1] == j) {
                 pq[i].push(0)
                 pi[i].push(null);
+                priorityQueue.enqueue([i, j, 0])
                 inQueue[i].push(false)
+                fromEnd[i].push(heuristic(start))
                 continue
             }
             pq[i].push(99999)
             pi[i].push(null)
             inQueue[i].push(false)
+            fromEnd[i].push(99999)
         }
     }
-    ltc = [50,250,100]
+    ltc = visitingColor
 }
 
-function processDijkstra() {
-    dijkstraDone = true
-    for (let i = 0; i < pq.length; i++) {
-        if (!pq[i].length == 0) {
-            dijkstraDone = false;
-            break;
-        }
-    }
-    u = extractMin();
-    colors[u[0]][u[1]] = [255, 0, 0];
-    dijkstraWhile = false;
-    dijkstraFor = true;
+// Euclidean, TODO: Add more heuristics
+
+function heuristic(node) {
+    return Math.sqrt(Math.pow(Math.abs(end[0] - node[0]), 2) + Math.pow(Math.abs(end[1] - node[1]), 2))
 }
 
-function relaxDijkstraSlow() {
+function relaxSlow() {
     if (dijkstraI == 8) {
         dijkstraFor = false
         dijkstraWhile = true
@@ -99,167 +131,26 @@ function relaxDijkstraSlow() {
         gVar -= gIncr;
         bVar -= bIncr;
         dijkstraI = 0
+        lastTouched=[]
     }
     else {
         try {
-            switch (dijkstraI) {
-                case 0:
-                    if (blocked[u[0] + 1][u[1]]) { break; }
-                    colors[u[0] + 1][u[1]] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1]] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1]] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0] + 1][u[1]] = [u[0], u[1]]
-                        lastTouched = [u[0] + 1, u[1]]
-                    }
-                    break;
-                case 1:
-                    if (blocked[u[0] - 1][u[1]]) { break; }
-                    colors[u[0] - 1][u[1]] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1]] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1]] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0] - 1][u[1]] = [u[0], u[1]]
-                        lastTouched = [u[0] - 1, u[1]]
-                    }
-                    break;
-                case 2:
-                    if (blocked[u[0]][u[1] + 1]) { break; }
-                    colors[u[0]][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0]][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0]][u[1] + 1] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0]][u[1] + 1] = [u[0], u[1]]
-                        lastTouched = [u[0], u[1] + 1]
-                    }
-                    break;
-                case 3:
-                    if (blocked[u[0]][u[1] - 1]) { break; }
-                    colors[u[0]][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0]][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0]][u[1] - 1] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0]][u[1] - 1] = [u[0], u[1]]
-                        lastTouched = [u[0], u[1] - 1]
-                    }
-                    break;
-                case 4:
-                    if (blocked[u[0] + 1][u[1] + 1]) { break; }
-                    colors[u[0] + 1][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] + 1][u[1] + 1] = [u[0], u[1]]
-                        lastTouched = [u[0] + 1, u[1] + 1]
-                    }
-                    break;
-                case 5:
-                    if (blocked[u[0] - 1][u[1] - 1]) { break; }
-                    colors[u[0] - 1][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] - 1][u[1] - 1] = [u[0], u[1]]
-                        lastTouched = [u[0] - 1, u[1] - 1]
-                    }
-                    break;
-                case 6:
-                    if (blocked[u[0] - 1][u[1] + 1]) { break; }
-                    colors[u[0] - 1][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] - 1][u[1] + 1] = [u[0], u[1]]
-                        lastTouched = [u[0] - 1, u[1] + 1]
-                    }
-                    break;
-                case 7:
-                    if (blocked[u[0] + 1][u[1] - 1]) { break; }
-                    colors[u[0] + 1][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] + 1][u[1] - 1] = [u[0], u[1]]
-                        lastTouched = [u[0] + 1, u[1] - 1]
-                    }
-                    break;
-
-            }
+            visitAdjacents()
             dijkstraI++;
         } catch (err) {
-            console.log(err)
             dijkstraI++;
         }
     }
 }
 
-
-function relaxDijkstraFast() {
+function relaxFast() {
     dijkstraI = 0
+    lastTouched = []
     while (dijkstraI != 8) {
         try {
-            switch (dijkstraI) {
-                case 0:
-                    if (blocked[u[0] + 1][u[1]]) { break; }
-                    colors[u[0] + 1][u[1]] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1]] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1]] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0] + 1][u[1]] = [u[0], u[1]]
-                    }
-                    break;
-                case 1:
-                    if (blocked[u[0] - 1][u[1]]) { break; }
-                    colors[u[0] - 1][u[1]] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1]] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1]] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0] - 1][u[1]] = [u[0], u[1]]
-                    }
-                    break;
-                case 2:
-                    if (blocked[u[0]][u[1] + 1]) { break; }
-                    colors[u[0]][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0]][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0]][u[1] + 1] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0]][u[1] + 1] = [u[0], u[1]]
-                    }
-                    break;
-                case 3:
-                    if (blocked[u[0]][u[1] - 1]) { break; }
-                    colors[u[0]][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0]][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0]][u[1] - 1] = (pq[u[0]][u[1]]) + 1
-                        pi[u[0]][u[1] - 1] = [u[0], u[1]]
-                    }
-                    break;
-                case 4:
-                    if (blocked[u[0] + 1][u[1] + 1]) { break; }
-                    colors[u[0] + 1][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] + 1][u[1] + 1] = [u[0], u[1]]
-                    }
-                    break;
-                case 5:
-                    if (blocked[u[0] - 1][u[1] - 1]) { break; }
-                    colors[u[0] - 1][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] - 1][u[1] - 1] = [u[0], u[1]]
-                    }
-                    break;
-                case 6:
-                    if (blocked[u[0] - 1][u[1] + 1]) { break; }
-                    colors[u[0] - 1][u[1] + 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] - 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] - 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] - 1][u[1] + 1] = [u[0], u[1]]
-                    }
-                    break;
-                case 7:
-                    if (blocked[u[0] + 1][u[1] - 1]) { break; }
-                    colors[u[0] + 1][u[1] - 1] = [rVar, gVar, bVar];
-                    if (pq[u[0] + 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1) {
-                        pq[u[0] + 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4
-                        pi[u[0] + 1][u[1] - 1] = [u[0], u[1]]
-                    }
-                    break;
-
-            }
+            visitAdjacents()
             dijkstraI++;
         } catch (err) {
-            console.log(err)
             dijkstraI++;
         }
         dijkstraFor = false
@@ -270,30 +161,120 @@ function relaxDijkstraFast() {
     }
 }
 
-
-
-function extractMin() {
-    let indexI = 0;
-    let indexJ = 0;
-    let min = 99999
-    for (let i = 0; i < pq.length; i++) {
-        for (let j = 0; j < pq[i].length; j++) {
-            if (pq[i][j] < min && !inQueue[i][j]) {
-                indexI = i;
-                indexJ = j;
-                min = pq[i][j];
+function visitAdjacents() {
+    switch (dijkstraI) {
+        case 0:
+            if (blocked[u[0] + 1][u[1]]) { break; }
+            colors[u[0] + 1][u[1]] = [rVar, gVar, bVar];
+            if (pq[u[0] + 1][u[1]] > (pq[u[0]][u[1]]) + 1 + (mountained[u[0]+1][u[1]] ? mountainSlopes[u[0]+1][u[1]]/mountainWeight : 0)) {
+                pq[u[0] + 1][u[1]] = (pq[u[0]][u[1]]) + 1 + (mountained[u[0]+1][u[1]] ? mountainSlopes[u[0]+1][u[1]]/mountainWeight : 0)
+                pi[u[0] + 1][u[1]] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]+1, u[1], pq[u[0] + 1][u[1]]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0]+1, u[1], heuristic([u[0] + 1, u[1]]) + pq[u[0] + 1][u[1]]])
+                }
+                lastTouched.push([u[0]+1,u[1]])
             }
-        }
-    }
-    if (lastMin[0]==indexI && lastMin[1]==indexJ) {
-        dijkstraDone = true
-        finishingDijkstra = false;
-        colors[end[0]][end[1]] = endColor;
-        colors[start[0]][start[1]] = startColor
-        console.log("CANT FIND END!!!")
-    }
-    lastMin = [indexI, indexJ, min]
-    inQueue[indexI][indexJ] = true;
+            break;
+        case 1:
+            if (blocked[u[0] - 1][u[1]]) { break; }
+            colors[u[0] - 1][u[1]] = [rVar, gVar, bVar];
+            if (pq[u[0] - 1][u[1]] > (pq[u[0]][u[1]]) + 1  + (mountained[u[0]-1][u[1]] ? mountainSlopes[u[0]-1][u[1]]/mountainWeight : 0)) {
+                pq[u[0] - 1][u[1]] = (pq[u[0]][u[1]]) + 1  + (mountained[u[0]-1][u[1]] ? mountainSlopes[u[0]-1][u[1]]/mountainWeight : 0)
+                pi[u[0] - 1][u[1]] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]-1, u[1],pq[u[0] - 1][u[1]]])
+                } else if (astar){
+                    priorityQueue.enqueue([u[0]-1, u[1], heuristic([u[0] - 1, u[1]]) + pq[u[0] - 1][u[1]]])
+                }
+                lastTouched.push([u[0]-1,u[1]])
+            }
+            break;
+        case 2:
+            if (blocked[u[0]][u[1] + 1]) { break; }
+            colors[u[0]][u[1] + 1] = [rVar, gVar, bVar];
+            if (pq[u[0]][u[1] + 1] > (pq[u[0]][u[1]]) + 1 + (mountained[u[0]][u[1]+1] ? mountainSlopes[u[0]][u[1]+1]/mountainWeight : 0)) {
+                pq[u[0]][u[1] + 1] = (pq[u[0]][u[1]]) + 1 + (mountained[u[0]][u[1]+1] ? mountainSlopes[u[0]][u[1]+1]/mountainWeight : 0)
+                pi[u[0]][u[1] + 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0], u[1]+1, pq[u[0]][u[1]+1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0], u[1]+1, heuristic([u[0], u[1]+1]) + pq[u[0]][u[1]+1]])
+                }
+                lastTouched.push([u[0],u[1]+1])
+            }
+            break;
+        case 3:
+            if (blocked[u[0]][u[1] - 1]) { break; }
+            colors[u[0]][u[1] - 1] = [rVar, gVar, bVar];
+            if (pq[u[0]][u[1] - 1] > (pq[u[0]][u[1]]) + 1  + (mountained[u[0]][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)) {
+                pq[u[0]][u[1] - 1] = (pq[u[0]][u[1]]) + 1  + (mountained[u[0]][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)
+                pi[u[0]][u[1] - 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0], u[1]-1, pq[u[0]][u[1]-1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0], u[1]-1, heuristic([u[0], u[1]-1]) + pq[u[0]][u[1]-1]])
+                }
+                lastTouched.push([u[0],u[1]-1])
+            }
+            break;
+        case 4:
+            if (blocked[u[0] + 1][u[1] + 1]) { break; }
+            colors[u[0] + 1][u[1] + 1] = [rVar, gVar, bVar];
+            if (pq[u[0] + 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)) {
+                pq[u[0] + 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)
+                pi[u[0] + 1][u[1] + 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]+1, u[1]+1, pq[u[0]+1][u[1]+1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0]+1, u[1]+1, heuristic([u[0]+1, u[1]+1]) + pq[u[0]+1][u[1]+1]])
+                }
+                lastTouched.push([u[0]+1,u[1]+1])
+            }
+            break;
+        case 5:
+            if (blocked[u[0] - 1][u[1] - 1]) { break; }
+            colors[u[0] - 1][u[1] - 1] = [rVar, gVar, bVar];
+            if (pq[u[0] - 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)) {
+                pq[u[0] - 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)
+                pi[u[0] - 1][u[1] - 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]-1, u[1]-1, pq[u[0]-1][u[1]-1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0]-1, u[1]-1, heuristic([u[0]-1, u[1]-1]) + pq[u[0]-1][u[1]-1]])
+                }
+                lastTouched.push([u[0]-1,u[1]-1])
+            }
+            break;
+        case 6:
+            if (blocked[u[0] - 1][u[1] + 1]) { break; }
+            colors[u[0] - 1][u[1] + 1] = [rVar, gVar, bVar];
+            if (pq[u[0] - 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)) {
+                pq[u[0] - 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)
+                pi[u[0] - 1][u[1] + 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]-1, u[1]+1, pq[u[0]-1][u[1]+1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0]-1, u[1]+1, heuristic([u[0]-1, u[1]+1]) + pq[u[0]-1][u[1]+1]])
+                }
+                lastTouched.push([u[0]-1,u[1]+1])
+            }
+            break;
+        case 7:
+            if (blocked[u[0] + 1][u[1] - 1]) { break; }
+            colors[u[0] + 1][u[1] - 1] = [rVar, gVar, bVar];
+            if (pq[u[0] + 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)) {
+                pq[u[0] + 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)
+                pi[u[0] + 1][u[1] - 1] = [u[0], u[1]]
+                if (dijkstra) {
+                    priorityQueue.enqueue([u[0]+1, u[1]-1, pq[u[0]+1][u[1]-1]])
+                } else if (astar) {
+                    priorityQueue.enqueue([u[0]+1, u[1]-1, heuristic([u[0]+1, u[1]-1]) + pq[u[0]+1][u[1]-1]])
+                }
+                lastTouched.push([u[0]+1,u[1]-1])
+            }
+            break;
 
-    return [indexI, indexJ, min];
+    }
 }
