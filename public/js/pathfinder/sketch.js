@@ -3,29 +3,30 @@ let coords = []
 let leftPadding = 50;
 let rightPadding = 50;
 let topPadding = 50;
-let bottomPadding = 50;
-let sqSize = 15;
+let bottomPadding = 100;
+let sqSize = 20;
 let start = null;
 let end = null;
 let pq = [];
 let pi = [];
 let u;
-let dijkstraMin;
-let dijkstraWhile = false;
-let dijkstraFor = false;
-let dijkstraI = 0;
-let dijkstraDone = false
-let dijkstraSetupDone = false
+let algorithmWhile = false;
+let algorithmFor = false;
+let algorithmI = 0;
+let algorithmDone = false
 let inQueue = [];
 let blocked = [];
-let dijkstraFound = false;
+let cantFindEnd = false;
 let lastTouched = []
-let rVar = 255;
+let rVar = 254;
 let rIncr = 0.02;
-let gVar = 255;
-let gIncr = 0.02;
-let bVar = 255;
+let gVar = 254;
+let rDir = true;
+let gIncr = 0.01;
+let gDir = true;
+let bVar = 254;
 let bIncr = 0.02;
+let bDir = true;
 
 let droppingStart = false;
 let droppingEnd = false;
@@ -34,8 +35,9 @@ let ltc = [100, 50, 200]
 let baseColor = [130, 130, 150]
 let blockedColor = [10, 10, 80];
 let eraseColor = [160, 160, 180];
-let startColor = [100, 220, 100];
-let endColor = [220, 100, 100];
+let startColor = [80, 220, 80];
+let endColor = [240, 80, 80];
+let startEndColorDir = false;
 let activeButtonColor = [255, 180, 120];
 let inactiveButtonColor = [180, 180, 180];
 let uColor = [240, 140, 30];
@@ -46,108 +48,136 @@ let mountainEndColor = [0,0,100]
 let lastBlocked = null;
 let processVar = 0;
 let processLimit = 30;
-let finishingDijkstra = false;
+let finishingAlgorithm = false;
 let drawingBorder = false;
 let erasingBorder = false;
 let par = null;
-let fastDijkstra = true;
-let fastbf = true;
-let fromEnd = [];
+let fastAlgorithm = true;
 let drawingTerrain = false;
+let drawingMountains = false;
 let drawTerrainStart = null;
 let drawTerrainEnd = null;
 let drawTerrainPressed = false;
-let dijkstraButton, bfButton, astarButton, dropStartButton, dropEndButton,
+let dijkstraButton, astarButton, dropStartButton, dropEndButton,
   resetAlgorithmButton, drawBorderButton, eraseBorderButton, resetBorderButton, drawTerrainButton
 let buttonsList
-let cantFindEnd = false;
 let dijkstra = false;
 let astar = false;
-let drawingMountains = false;
+let bfs = false;
 let mountained = [];
 let mountainSlopes = [];
 let mountainColors = [];
 let mountainWeight = 20;
 let mountainWeightSlider;
+let visited = []
+let dfsAdjCount = []
+let running = false;
+
 let priorityQueue = new PriorityQueue()
 
 
 function setup() {
   textSize(20)
-  let c = createCanvas(1000, 900);
+  let c = createCanvas(1000, 800);  
   c.parent('pathfinderDiv')
   setupSquares()
   frameRate(144)
   noSmooth()
   dijkstraButton = createButton('Dijkstra')
-  dijkstraButton.position(100, 70)
+  dijkstraButton.position(50, 110)
   dijkstraButton.mousePressed(startDijkstra)
   dijkstraButton.style('background-color', color(inactiveButtonColor));
 
-  bfButton = createButton('Bellman Ford')
-  bfButton.position(100, 100)
-  bfButton.mousePressed(startbf)
-  bfButton.style('background-color', color(inactiveButtonColor));
-
   astarButton = createButton('A*')
-  astarButton.position(170, 70)
+  astarButton.position(115, 110)
   astarButton.mousePressed(startAstar)
   astarButton.style('background-color', color(inactiveButtonColor));
 
+  bfsButton = createButton('BFS')
+  bfsButton.position(150, 110)
+  bfsButton.mousePressed(startBfs)
+  bfsButton.style('background-color', color(inactiveButtonColor));
+
   dropStartButton = createButton('Drop Start')
-  dropStartButton.position(250, 70)
+  dropStartButton.position(210, 80)
   dropStartButton.mousePressed(dropStart)
   dropStartButton.style('background-color', color(inactiveButtonColor));
 
   dropEndButton = createButton('Drop End')
-  dropEndButton.position(250, 100)
+  dropEndButton.position(212, 110)
   dropEndButton.mousePressed(dropEnd)
   dropEndButton.style('background-color', color(inactiveButtonColor));
 
-  resetAlgorithmButton = createButton('Reset')
-  resetAlgorithmButton.position(350, 100)
-  resetAlgorithmButton.mousePressed(reset)
-  resetAlgorithmButton.style('background-color', color(inactiveButtonColor));
-
   drawBorderButton = createButton('Draw Border')
-  drawBorderButton.position(450, 100)
+  drawBorderButton.position(320, 80)
   drawBorderButton.mousePressed(drawBorder)
   drawBorderButton.style('background-color', color(inactiveButtonColor));
 
+  resetAlgorithmButton = createButton('Reset')
+  resetAlgorithmButton.position(105, 80)
+  resetAlgorithmButton.mousePressed(reset)
+  resetAlgorithmButton.style('background-color', color(inactiveButtonColor));
+
+
   eraseBorderButton = createButton('Erase Border')
-  eraseBorderButton.position(550, 70)
+  eraseBorderButton.position(320, 110)
   eraseBorderButton.mousePressed(eraseBorder)
   eraseBorderButton.style('background-color', color(inactiveButtonColor));
 
+  resetMountainsButton = createButton('Reset Mountains')
+  resetMountainsButton.position(600, 110)
+  resetMountainsButton.mousePressed(resetMountains)
+  resetMountainsButton.style('background-color', color(inactiveButtonColor));
+
   resetBorderButton = createButton('Reset Border')
-  resetBorderButton.position(550, 100)
+  resetBorderButton.position(600, 80)
   resetBorderButton.mousePressed(resetBorder)
   resetBorderButton.style('background-color', color(inactiveButtonColor));
 
-  drawTerrainButton = createButton('Draw Terrain')
-  drawTerrainButton.position(650, 100)
+  drawTerrainButton = createButton('Draw Box Border')
+  drawTerrainButton.position(450, 80)
   drawTerrainButton.mousePressed(drawTerrain)
   drawTerrainButton.style('background-color', color(inactiveButtonColor));
 
   drawMountainsButton = createButton('Draw Mountains')
-  drawMountainsButton.position(750, 100)
+  drawMountainsButton.position(450, 110)
   drawMountainsButton.mousePressed(drawMountains)
   drawMountainsButton.style('background-color', color(inactiveButtonColor));
 
-  buttonsList = [dijkstraButton, bfButton, astarButton, dropStartButton, dropEndButton,
+  buttonsList = [dijkstraButton, astarButton, dropStartButton, dropEndButton,
     resetAlgorithmButton, drawBorderButton, eraseBorderButton, resetBorderButton, drawTerrainButton,
     drawMountainsButton]
 
-  speedSlider = createSlider(1, 100, 60, 1)
-  speedSlider.position(150, 980)
+  speedSlider = createSlider(1, 150, 60, 1)
+  speedSlider.position(110, 890)
 
-  drawSlider = createSlider(1, 3, 2, 1)
-  drawSlider.position(390, 980)
+  sqSizeSlider = createSlider(10, 50, 20, 1)
+  sqSizeSlider.position(110, 850)
+
+  drawSlider = createSlider(1, 10, 2, 1)
+  drawSlider.position(280, height+50)
 
   mountainWeightSlider = createSlider(1, 100, 60, 1)
-  mountainWeightSlider.position(650, 980);
+  mountainWeightSlider.position(450, height+50);
 
+  mountainDrawIntensitySlider = createSlider(1, 20, 10, 1)
+  mountainDrawIntensitySlider.position(450, height+90);
+
+  rIncrSlider = createSlider(0, 1, 0.05, 0.01)
+  rIncrSlider.position(790, height+35);
+
+  gIncrSlider = createSlider(0, 1, 0.05, 0.01)
+  gIncrSlider.position(790, height+55);
+
+  bIncrSlider = createSlider(0, 1, 0.05, 0.01)
+  bIncrSlider.position(790, height+75);
+  strokeWeight(0.5)
+  stroke(1)
 }
+
+
+// TODO MAKE MOUNTAINS NOT DRAW OVER BORDER
+
 
 function draw() {
   background(250);
@@ -163,8 +193,8 @@ function draw() {
     blocked[end[0]][end[1]] = false;
     square(coords[end[0]][end[1]][0], coords[end[0]][end[1]][1], sqSize)
   }
-  if (currentAlgorithm) {
-    currentAlgorithm()
+  if (running) {
+    runAlgorithm()
   }
   fill(...ltc)
   for (let n = 0; n < lastTouched.length; n++) {
@@ -172,37 +202,63 @@ function draw() {
       square(coords[lastTouched[n][0]][lastTouched[n][1]][0], coords[lastTouched[n][0]][lastTouched[n][1]][1], sqSize)
     } catch (err) {
     }
+  }  
+  if (sqSize != sqSizeSlider.value() && !running) {
+    sqSize = sqSizeSlider.value()
+    setupSquares()
   }
-
   if (cantFindEnd) {
-    textSize(30)
+    textSize(50)
     stroke(0)
-    strokeWeight(5)
+    strokeWeight(10)
     fill(250, 250, 250)
     text("Can't Find End", 100, 100)
-    strokeWeight(1)
+    strokeWeight(0.5)
     stroke(1)
   }
-  fill(0, 0, 0)
   textSize(15)
-  text("Speed: " + speedSlider.value(), 135, height-20)
-  text("Draw Size: " + drawSlider.value(), 375, height-20)
-  text("Mountain Weight: " + mountainWeightSlider.value(),600, height-20)
+  fill(0,0,0)
+  text("Speed: " + speedSlider.value(), 135, height-10)
+  text("Square Size: "+sqSizeSlider.value()+"px", 115, height-50)
+  text("Draw Size: " + drawSlider.value(), 300, height-50)
+  text("Mountain Weight: " + mountainWeightSlider.value(),440, height-50)
+  text("Mountain Draw Intensity: " + mountainDrawIntensitySlider.value(),430, height-10)
   mountainWeight = 100 - mountainWeightSlider.value();
+  rIncr = rIncrSlider.value()
+  text("ΔR - " + rIncrSlider.value(), 720, height-43)
+  gIncr = gIncrSlider.value()
+  text("ΔG - " + gIncrSlider.value(), 720, height-23)
+  bIncr = bIncrSlider.value()
+  text("ΔB - " + bIncrSlider.value(), 720, height-3)
   if (speedSlider.value() < 50) {
-    fastDijkstra = false;
+    fastAlgorithm = false;
     frameRate(10 + speedSlider.value())
   }
   else {
-    fastDijkstra = true;
+    fastAlgorithm = true;
     frameRate(60)
-    processLimit = speedSlider.value() - 50
+    processLimit = speedSlider.value() - 49
   }
+  oscillateStartEndColors()
+  lastTouched = []
 }
 
+function oscillateStartEndColors() {
+  if (startColor[2] < 20 || startColor[2] >200) {
+    startEndColorDir = !startEndColorDir;
+  }
+  let incr = startEndColorDir?10:-10;
+  startColor[0]+=incr;
+  startColor[2]+=incr;
+  endColor[1]+=incr;
+  endColor[2]+=incr;
+}
+
+
 function setupSquares() {
+  end = null;
+  start = null;
   let x = 0
-  let y = 0;
   blocked=[];
   colors = []
   coords = []
@@ -216,7 +272,6 @@ function setupSquares() {
     mountained.push([])
     mountainSlopes.push([])
     mountainColors.push([])
-    y = 0
     for (let j = topPadding; j < height - bottomPadding; j += sqSize) {
       colors[x].push(baseColor)
       coords[x].push([i, j])
@@ -224,7 +279,6 @@ function setupSquares() {
       mountained[x].push(false)
       mountainSlopes[x].push(0)
       mountainColors[x].push([...mountainStartColor])
-      y++;
     }
     x++;
   }
@@ -281,9 +335,9 @@ function selectSquares() {
     if (isMouseInFrame()) {
       sqx = parseInt((mouseX - leftPadding) / sqSize)
       sqy = parseInt((mouseY - topPadding) / sqSize)
-      lastTouched = []
       lastTouched.push([sqx, sqy])
       if (mouseIsPressed) {
+        droppingStart && start!= null ? colors[start[0]][start[1]] = baseColor : end!=null ? colors[end[0]][end[1]] = baseColor : {};
         droppingStart ? start = [sqx, sqy] : end = [sqx, sqy]
         droppingStart ? colors[start[0]][start[1]] = baseColor : colors[end[0]][end[1]] = baseColor
         droppingStart ? colors[sqx][sqy] = startColor : colors[sqx][sqy] = endColor
@@ -293,7 +347,6 @@ function selectSquares() {
     }
   }
   else if (drawingBorder || erasingBorder) {
-    lastTouched = []
     if (isMouseInFrame()) {
       sqx = parseInt((mouseX - leftPadding) / sqSize)
       sqy = parseInt((mouseY - topPadding) / sqSize)
@@ -332,13 +385,13 @@ function selectSquares() {
         if (drawSize > 2) {
           lastTouched.push([sqx + 1, sqy + 1], [sqx - 1, sqy + 1], [sqx - 1, sqy - 1], [sqx + 1, sqy - 1])
         }
-      } catch (err) { console.log(err) }
+      } catch (err) { 
+        // console.log(err) 
+      }
     }
   }
   else if (drawingTerrain) {
-    lastTouched = []
     if (isMouseInFrame()) {
-      console.log("drawingterrain")
       if (drawTerrainPressed && mouseIsPressed) {
         rect(drawTerrainStart[0],
           drawTerrainStart[1],
@@ -346,50 +399,48 @@ function selectSquares() {
           ((mouseY - drawTerrainStart[1])))
       }
     }
-    else {
-      lastTouched = [];
-    }
   }
   else if (drawingMountains) {
-    lastTouched = []
     if (isMouseInFrame()) {
       sqx = parseInt((mouseX - leftPadding) / sqSize)
       sqy = parseInt((mouseY - topPadding) / sqSize)
       try {
         let drawSize = drawSlider.value();
         if (mouseIsPressed) {
-          console.log("drawinmountains")
           incrementMountain(sqx,sqy)
           colors[sqx][sqy] = mountainColors[sqx][sqy]
-          if (drawSize > 1) {
-            incrementMountain(sqx+1, sqy)
-            colors[sqx + 1][sqy] = mountainColors[sqx+1][sqy]
-            incrementMountain(sqx-1, sqy)
-            colors[sqx - 1][sqy] = mountainColors[sqx-1][sqy]
-            incrementMountain(sqx, sqy+1)
-            colors[sqx][sqy + 1] = mountainColors[sqx][sqy+1]
-            incrementMountain(sqx, sqy-1)
-            colors[sqx][sqy - 1] = mountainColors[sqx][sqy-1]
+          for (let v = 1; v < drawSize; v++) {
+            for (let o = 0; o < 4; o++) {
+              for (let p = -v; p <= v; p++) {
+                if (drawSize > 2 && (p < -parseInt(drawSize*(drawSize/3)/v) || p > parseInt(drawSize*(drawSize/3)/v))) {
+                  continue
+                }
+                if (o == 0) {
+                  incrementMountain(sqx+p, sqy+v)
+                  colors[sqx+p][sqy+v] = mountainColors[sqx+p][sqy+v]
+                } 
+                if (o == 1) {
+                  incrementMountain(sqx+p, sqy-v)
+                  colors[sqx+p][sqy-v] = mountainColors[sqx+p][sqy-v]
+                }
+                if (o == 2) {
+                  incrementMountain(sqx+v, sqy+p)
+                  colors[sqx+v][sqy+p] = mountainColors[sqx+v][sqy+p]
+                }
+                if (o == 3) {
+                  incrementMountain(sqx-v, sqy+p)
+                  colors[sqx-v][sqy+p] = mountainColors[sqx-v][sqy+p]
+                }
+              }
+            }
           }
-          if (drawSize > 2) {
-            incrementMountain(sqx+1, sqy+1)
-            colors[sqx + 1][sqy + 1] = mountainColors[sqx+1][sqy+1]
-            incrementMountain(sqx-1, sqy+1)
-            colors[sqx - 1][sqy + 1] = mountainColors[sqx-1][sqy+1]
-            incrementMountain(sqx+1, sqy-1)
-            colors[sqx + 1][sqy - 1] = mountainColors[sqx+1][sqy-1]
-            incrementMountain(sqx-1, sqy-1)
-            colors[sqx - 1][sqy - 1] = mountainColors[sqx-1][sqy-1]
-          }
         }
-        lastTouched.push([sqx, sqy])
-        if (drawSize > 1) {
-          lastTouched.push([sqx + 1, sqy], [sqx - 1, sqy], [sqx, sqy + 1], [sqx, sqy - 1])
+        let c = [200, 200, 200, 0.1]
+        fill(c)
+        ellipse(mouseX, mouseY, drawSize*sqSize*2, drawSize*sqSize*2)
+      } catch (err) {
+        //  console.log(err) 
         }
-        if (drawSize > 2) {
-          lastTouched.push([sqx + 1, sqy + 1], [sqx - 1, sqy + 1], [sqx - 1, sqy - 1], [sqx + 1, sqy - 1])
-        }
-      } catch (err) { console.log(err) }
     }
   }
 }
@@ -397,14 +448,11 @@ function selectSquares() {
 function incrementMountain(x, y) {
   for (let f = 0; f < 3; f++) {
     if (mountainColors[x][y][f] > mountainEndColor[f]) {
-      mountainColors[x][y][f]-=8;
+      mountainColors[x][y][f]-=mountainDrawIntensitySlider.value();
     }
   }
   mountained[x][y] = true
   mountainSlopes[x][y] = 200 - mountainColors[x][y][0];
-  if (mountainSlopes[x][y] == 200) {
-    blocked[x][y] = true
-  }
 }
 
 function mouseReleased() {
@@ -432,18 +480,15 @@ function reset() {
   coords = []
   pq = [];
   pi = [];
-  dijkstraWhile = false;
-  dijkstraFor = false;
-  dijkstraDone = false
-  dijkstraSetupDone = false
-  dijkstraFound = false;
-  dijkstraI = 0;
-  lastTouched = []
+  algorithmWhile = false;
+  algorithmFor = false;
+  algorithmDone = false
+  algorithmI = 0;
   rVar = 255;
   gVar = 255;
   bVar = 255;
   cantFindEnd = false;
-  currentAlgorithm = null;
+  running = false;
   priorityQueue = new PriorityQueue();
   resetSquares()
 }
@@ -453,6 +498,19 @@ function resetBorder() {
     for (let b = 0; b < blocked[a].length; b++) {
       if (blocked[a][b]) {
         blocked[a][b] = false;
+        colors[a][b] = baseColor;
+      }
+    }
+  }
+}
+
+function resetMountains() {
+  for (let a = 0; a < coords.length; a++) {
+    for (let b = 0; b < coords[a].length; b++) {
+      if (mountained[a][b]) {
+        mountained[a][b] = false;
+        mountainColors[a][b] = [...mountainStartColor]
+        mountainSlopes[a][b] = 0
         colors[a][b] = baseColor;
       }
     }
@@ -549,9 +607,6 @@ function calculateTerrain() {
   let endBox = [parseInt((drawTerrainEnd[0] - leftPadding) / sqSize), parseInt((drawTerrainEnd[1] - topPadding) / sqSize)]
   let incrI = startBox[0] - endBox[0] < 0 ? 1 : -1
   let incrJ = startBox[1] - endBox[1] < 0 ? 1 : -1
-  console.log("Incr I: ", incrI)
-  console.log("Incr J: ", incrJ)
-  console.log("Start: ", startBox, " End: ", endBox)
   for (let i = startBox[0]; (incrI == -1 ? i > endBox[0] : i < endBox[0]); i += incrI) {
     for (let j = startBox[1]; (incrJ == -1 ? j > endBox[1] : j < endBox[1]); j += incrJ) {
       colors[i][j] = blockedColor;

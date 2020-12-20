@@ -14,3 +14,6 @@ a {
 .bg-color {
   background-color: rgba(170, 195, 206, 0.4);
 }
+#paddingDiv {
+  padding-top:20em;
+}
