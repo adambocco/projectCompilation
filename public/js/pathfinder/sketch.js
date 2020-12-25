@@ -2,8 +2,8 @@ let colors = []
 let coords = []
 let leftPadding = 50;
 let rightPadding = 50;
-let topPadding = 50;
-let bottomPadding = 100;
+let topPadding = 100;
+let bottomPadding = 130;
 let sqSize = 20;
 let start = null;
 let end = null;
@@ -45,6 +45,7 @@ let uColorDir = [false, false, false]
 let visitingColor = [255, 50, 80]
 let mountainStartColor = [200, 200 ,250];
 let mountainEndColor = [0,0,100]
+let returnPathColor = [255, 255, 25];
 let lastBlocked = null;
 let processVar = 0;
 let processLimit = 30;
@@ -72,109 +73,126 @@ let mountainWeightSlider;
 let visited = []
 let dfsAdjCount = []
 let running = false;
-
+let noiseScale = 0.1
+let returnPath = []
+let perlinMountainsDrawn = false
+const srtwo = Math.sqrt(2)
 let priorityQueue = new PriorityQueue()
 
 
 function setup() {
   textSize(20)
-  let c = createCanvas(1000, 800);  
-  c.parent('pathfinderDiv')
+  let c = createCanvas(1400,900);
+  
+  // c.parent('pathfinderDiv')
   setupSquares()
   frameRate(144)
   noSmooth()
-  dijkstraButton = createButton('Dijkstra')
-  dijkstraButton.position(50, 110)
-  dijkstraButton.mousePressed(startDijkstra)
-  dijkstraButton.style('background-color', color(inactiveButtonColor));
+  textAlign(CENTER)
 
-  astarButton = createButton('A*')
-  astarButton.position(115, 110)
-  astarButton.mousePressed(startAstar)
-  astarButton.style('background-color', color(inactiveButtonColor));
+  algorithmSelect = createSelect()
+  algorithmSelect.position(60,200)
+  algorithmSelect.option("Dijkstra")
+  algorithmSelect.option("A*")
+  algorithmSelect.option("BFS")
 
-  bfsButton = createButton('BFS')
-  bfsButton.position(150, 110)
-  bfsButton.mousePressed(startBfs)
-  bfsButton.style('background-color', color(inactiveButtonColor));
+  startButton = createButton('Start')
+  startButton.position(50, 230)
+  startButton.mousePressed(runSelectedAlgorithm)
+  startButton.style('background-color', color(inactiveButtonColor));
+
+  resetAlgorithmButton = createButton('Reset')
+  resetAlgorithmButton.position(100, 230)
+  resetAlgorithmButton.mousePressed(reset)
+  resetAlgorithmButton.style('background-color', color(inactiveButtonColor));
 
   dropStartButton = createButton('Drop Start')
-  dropStartButton.position(210, 80)
+  dropStartButton.position(170, 200)
   dropStartButton.mousePressed(dropStart)
   dropStartButton.style('background-color', color(inactiveButtonColor));
 
   dropEndButton = createButton('Drop End')
-  dropEndButton.position(212, 110)
+  dropEndButton.position(170, 230)
   dropEndButton.mousePressed(dropEnd)
   dropEndButton.style('background-color', color(inactiveButtonColor));
 
   drawBorderButton = createButton('Draw Border')
-  drawBorderButton.position(320, 80)
+  drawBorderButton.position(280, 200)
   drawBorderButton.mousePressed(drawBorder)
   drawBorderButton.style('background-color', color(inactiveButtonColor));
 
-  resetAlgorithmButton = createButton('Reset')
-  resetAlgorithmButton.position(105, 80)
-  resetAlgorithmButton.mousePressed(reset)
-  resetAlgorithmButton.style('background-color', color(inactiveButtonColor));
-
-
   eraseBorderButton = createButton('Erase Border')
-  eraseBorderButton.position(320, 110)
+  eraseBorderButton.position(380, 200)
   eraseBorderButton.mousePressed(eraseBorder)
   eraseBorderButton.style('background-color', color(inactiveButtonColor));
 
-  resetMountainsButton = createButton('Reset Mountains')
-  resetMountainsButton.position(600, 110)
-  resetMountainsButton.mousePressed(resetMountains)
-  resetMountainsButton.style('background-color', color(inactiveButtonColor));
-
   resetBorderButton = createButton('Reset Border')
-  resetBorderButton.position(600, 80)
+  resetBorderButton.position(380, 230)
   resetBorderButton.mousePressed(resetBorder)
   resetBorderButton.style('background-color', color(inactiveButtonColor));
 
-  drawTerrainButton = createButton('Draw Box Border')
-  drawTerrainButton.position(450, 80)
+  drawTerrainButton = createButton('Draw Blocks')
+  drawTerrainButton.position(280, 230)
   drawTerrainButton.mousePressed(drawTerrain)
   drawTerrainButton.style('background-color', color(inactiveButtonColor));
 
   drawMountainsButton = createButton('Draw Mountains')
-  drawMountainsButton.position(450, 110)
+  drawMountainsButton.position(500, 200)
   drawMountainsButton.mousePressed(drawMountains)
   drawMountainsButton.style('background-color', color(inactiveButtonColor));
 
-  buttonsList = [dijkstraButton, astarButton, dropStartButton, dropEndButton,
-    resetAlgorithmButton, drawBorderButton, eraseBorderButton, resetBorderButton, drawTerrainButton,
-    drawMountainsButton]
+  drawPerlinMountainsButton = createButton('Perlin Noise Mountains')
+  drawPerlinMountainsButton.position(540, 230)
+  drawPerlinMountainsButton.mousePressed(drawPerlinMountains)
+  drawPerlinMountainsButton.style('background-color', color(inactiveButtonColor));
+
+  resetMountainsButton = createButton('Reset Mountains')
+  resetMountainsButton.position(623, 200)
+  resetMountainsButton.mousePressed(resetMountains)
+  resetMountainsButton.style('background-color', color(inactiveButtonColor));
+
+  showReturnPathButton = createButton('Show Return Path')
+  showReturnPathButton.position(760, 200)
+  showReturnPathButton.mousePressed(showReturnPath)
+  showReturnPathButton.style('background-color', color(inactiveButtonColor));
+
+  generateMazeButton = createButton('Generate Maze')
+  generateMazeButton.position(760, 230)
+  generateMazeButton.mousePressed(generateMaze)
+  generateMazeButton.style('background-color', color(inactiveButtonColor));
+
+  buttonsList = [dropStartButton, dropEndButton,resetAlgorithmButton, drawBorderButton, eraseBorderButton, resetBorderButton, drawTerrainButton,
+    drawMountainsButton, drawPerlinMountainsButton]
 
   speedSlider = createSlider(1, 150, 60, 1)
-  speedSlider.position(110, 890)
+  speedSlider.position(56, height+127)
 
   sqSizeSlider = createSlider(10, 50, 20, 1)
-  sqSizeSlider.position(110, 850)
+  sqSizeSlider.position(56, height+90)
+
+  perlinNoiseSlider = createSlider(0.005, 0.5, 0.02, 0.001)
+  perlinNoiseSlider.position(205, height+90)
 
   drawSlider = createSlider(1, 10, 2, 1)
-  drawSlider.position(280, height+50)
+  drawSlider.position(205, height+127)
 
-  mountainWeightSlider = createSlider(1, 100, 60, 1)
-  mountainWeightSlider.position(450, height+50);
+  mountainWeightSlider = createSlider(1, 200, 60, 1)
+  mountainWeightSlider.position(435, height+90);
 
   mountainDrawIntensitySlider = createSlider(1, 20, 10, 1)
-  mountainDrawIntensitySlider.position(450, height+90);
+  mountainDrawIntensitySlider.position(435, height+127);
 
   rIncrSlider = createSlider(0, 1, 0.05, 0.01)
-  rIncrSlider.position(790, height+35);
+  rIncrSlider.position(750, height+105);
 
   gIncrSlider = createSlider(0, 1, 0.05, 0.01)
-  gIncrSlider.position(790, height+55);
+  gIncrSlider.position(750, height+125);
 
   bIncrSlider = createSlider(0, 1, 0.05, 0.01)
-  bIncrSlider.position(790, height+75);
+  bIncrSlider.position(750, height+145);
   strokeWeight(0.5)
   stroke(1)
 }
-
 
 // TODO MAKE MOUNTAINS NOT DRAW OVER BORDER
 
@@ -218,18 +236,26 @@ function draw() {
   }
   textSize(15)
   fill(0,0,0)
-  text("Speed: " + speedSlider.value(), 135, height-10)
-  text("Square Size: "+sqSizeSlider.value()+"px", 115, height-50)
-  text("Draw Size: " + drawSlider.value(), 300, height-50)
-  text("Mountain Weight: " + mountainWeightSlider.value(),440, height-50)
-  text("Mountain Draw Intensity: " + mountainDrawIntensitySlider.value(),430, height-10)
-  mountainWeight = 100 - mountainWeightSlider.value();
+  text("Speed: " + speedSlider.value(), 115, height-15)
+  text("Square Size: "+sqSizeSlider.value()+"px", 115, height-55)
+  text("Draw Size: " + drawSlider.value(), 270, height-15)
+  text("Noise: " +noiseScale, 270, height-55)
+  text("Mountain Weight: " + mountainWeightSlider.value(),500, height-55)
+  text("Mountain Draw Intensity: " + mountainDrawIntensitySlider.value(),500, height-15)
+  mountainWeight = 201 - mountainWeightSlider.value();
   rIncr = rIncrSlider.value()
-  text("ΔR - " + rIncrSlider.value(), 720, height-43)
+  text("ΔR - " + rIncrSlider.value(), 700, height-55)
   gIncr = gIncrSlider.value()
-  text("ΔG - " + gIncrSlider.value(), 720, height-23)
+  text("ΔG - " + gIncrSlider.value(), 700, height-35)
   bIncr = bIncrSlider.value()
-  text("ΔB - " + bIncrSlider.value(), 720, height-3)
+  text("ΔB - " + bIncrSlider.value(), 700, height-15)
+  if (noiseScale != perlinNoiseSlider.value()) {
+    noiseScale = perlinNoiseSlider.value()
+    if (perlinMountainsDrawn) {
+      drawPerlinMountains()
+      console.log("DrawinMountains")
+    }
+  }
   if (speedSlider.value() < 50) {
     fastAlgorithm = false;
     frameRate(10 + speedSlider.value())
@@ -243,6 +269,58 @@ function draw() {
   lastTouched = []
 }
 
+function showReturnPath() {
+  for (let v = 0; v < returnPath.length; v++) {
+    colors[returnPath[v][0]][returnPath[v][1]] = returnPathColor;
+    console.log(returnPath[v])
+  }
+}
+
+function generateMaze() {
+  for (let x = 0; x < coords.length; x++) { // Cover entire grid with blocked squares
+    for (let y = 0; y < coords[x].length; y++) {
+      colors[x][y] = blockedColor;
+      blocked[x][y] = true;
+    }
+  }  
+  let n = 1, s = 2, e=4, w=8;
+  let dx = {4:2, 8:-2, 1:0, 2:0}
+  let dy = {4:0, 8:0, 1:-2,2:2}
+  let opposites = {4:w, 8:e, 1:s, 2:n}
+  function makePassages(cx, cy, grid) {
+    shuffle([n,s,e,w]).forEach((el,i)=> {
+      let nx = cx + dx[el]
+      let ny = cy + dy[el]
+      if ((ny > 0 && ny < grid.length-1) && (nx > 0 && nx < grid[ny].length-1) && (grid[ny][nx] == 0)) {
+        colors[cx+dx[el]][cy+dy[el]] = baseColor
+        blocked[cx+dx[el]][cy+dy[el]] = false
+        grid[cy][cx] |= el
+        grid[ny][nx] |= opposites[el]
+        makePassages(nx, ny, grid)
+      }
+    })
+  }
+  let g = []
+  for (let  i = 0; i < coords[0].length; i++) {
+    g.push([])
+    for (let j = 0 ; j < coords.length; j++) {
+      g[i].push(0)
+    }
+  }
+  makePassages(2,2, g)
+  console.log(g)
+  for (let  i = 2; i < coords[0].length; i+=2) {
+    for (let j = 2 ; j < coords.length; j+=2) {
+      [n,s,e,w].forEach(el=> {
+        if ((g[i][j] & el) ) {
+          colors[j + (dx[el]/2)][i + (dy[el]/2)] = baseColor
+          blocked[j + (dx[el]/2)][i + (dy[el]/2)] = false
+        }
+      })
+    }
+  }
+}
+
 function oscillateStartEndColors() {
   if (startColor[2] < 20 || startColor[2] >200) {
     startEndColorDir = !startEndColorDir;
@@ -254,11 +332,33 @@ function oscillateStartEndColors() {
   endColor[2]+=incr;
 }
 
+function drawPerlinMountains() {
+  perlinMountainsDrawn = true;
+  for (let x = 0; x < coords.length; x++) {
+    for (let y = 0; y < coords[x].length; y++) {
+      if (blocked[x][y]) {
+        continue
+      }
+      mountained[x][y]=true;
+      let n = noise(x*noiseScale, y*noiseScale)
+      mountainColors[x][y] = [
+        200 - n*200,
+        200 - n*200,
+        250 - n*150
+      ]
+      colors[x][y] = mountainColors[x][y]
+      mountainSlopes[x][y] = 200 - mountainColors[x][y][0]
+
+    }
+  }
+}
+
 
 function setupSquares() {
   end = null;
   start = null;
   let x = 0
+  returnPath = []
   blocked=[];
   colors = []
   coords = []
@@ -407,13 +507,20 @@ function selectSquares() {
       try {
         let drawSize = drawSlider.value();
         if (mouseIsPressed) {
+          let pvDone = false
           incrementMountain(sqx,sqy)
           colors[sqx][sqy] = mountainColors[sqx][sqy]
           for (let v = 1; v < drawSize; v++) {
             for (let o = 0; o < 4; o++) {
+              pvDone = false
               for (let p = -v; p <= v; p++) {
-                if (drawSize > 2 && (p < -parseInt(drawSize*(drawSize/3)/v) || p > parseInt(drawSize*(drawSize/3)/v))) {
+                if (drawSize > 1 && (p < -parseInt(drawSize*(drawSize/3)/v) || p > parseInt(drawSize*(drawSize/3)/v))) {
                   continue
+                }  
+                if (Math.abs(p)==Math.abs(v) && (o==0 || o ==1)) {
+                  continue
+                } else if (Math.abs(p)==Math.abs(v)) {
+                  pvDone = true;
                 }
                 if (o == 0) {
                   incrementMountain(sqx+p, sqy+v)
@@ -499,12 +606,16 @@ function resetBorder() {
       if (blocked[a][b]) {
         blocked[a][b] = false;
         colors[a][b] = baseColor;
+        if (mountained[a][b]) {
+          colors[a][b] = mountainColors[a][b]
+        }
       }
     }
   }
 }
 
 function resetMountains() {
+  perlinMountainsDrawn = false;
   for (let a = 0; a < coords.length; a++) {
     for (let b = 0; b < coords[a].length; b++) {
       if (mountained[a][b]) {
@@ -512,6 +623,9 @@ function resetMountains() {
         mountainColors[a][b] = [...mountainStartColor]
         mountainSlopes[a][b] = 0
         colors[a][b] = baseColor;
+        if (blocked[a][b]) {
+          colors[a][b] = blockedColor
+        }
       }
     }
   }
@@ -530,6 +644,14 @@ function deactivateAllButtons() {
   for (let i = 0; i < buttonsList.length; i++) {
     buttonsList[i].style('background-color', color(inactiveButtonColor));
   }
+}
+
+
+function runSelectedAlgorithm() {
+  let alg = algorithmSelect.value()
+  if (alg === "Dijkstra") {startDijkstra()}
+  else if (alg === "A*") {startAstar()}
+  else if (alg === "BFS") {startBfs()}
 }
 
 function dropStart() {
@@ -590,6 +712,7 @@ function drawTerrain() {
   drawingTerrain = true;
   drawTerrainButton.style('background-color', color(activeButtonColor));
 }
+
 
 function drawMountains() {
   if (drawingMountains) {

@@ -1,44 +1,52 @@
 
 function runAlgorithm() {
-    if (finishingAlgorithm) {
-        finishAlgorithm()
-    } else {
-        for (let k = 0; k < processLimit; k++) {
-            if (!algorithmDone) {
-                if (pq[end[0]][end[1]] < 99999) {
-                    finishingAlgorithm = true
-                    par = [end[0], end[1]]
-                    par = pi[par[0]][par[1]]
-                    colors[end[0]][end[1]] = endColor;
-                    colors[start[0]][start[1]] = startColor
-                }
-                else if (algorithmWhile) {
-                    u = priorityQueue.dequeue()[0]
-                    if ( !u || u.length==0) { 
-                        cantFindEnd = true;
-                        algorithmDone = true;
-                        return 
-                    }
-                    colors[u[0]][u[1]] = uColor;
-                    for (let m = 0; m < 3; m++) {
-                        if (uColor[m] > 250 || uColor[m] <3) {
-                            uColorDir[m] = !uColorDir[m]
-                        }
-                        uColorDir[m] ? uColor[m]++:uColor[m]--;
-                    }
-                    algorithmFor = true
-                    algorithmWhile = false;
-                } else if (algorithmFor) {
-                    if (fastAlgorithm) {
-                        relaxFast()
-                    } else {
-                        relaxSlow()
-                    }
-                }
-            } else {
-                currentAlgorithm = null;
-            }
+    for (let k = 0; k < processLimit; k++) {
+        if (finishingAlgorithm) {
+            finishAlgorithm()
         }
+        else if (!algorithmDone) {
+            if (pq[end[0]][end[1]] < 99999) {
+                finishingAlgorithm = true
+                returnPath = []
+                par = [end[0], end[1]]
+                par = pi[par[0]][par[1]]
+                storeReturnPath()
+            }
+            else if (algorithmWhile) {
+                u = priorityQueue.dequeue()[0]
+                if ( !u || u.length==0) { 
+                    cantFindEnd = true;
+                    algorithmDone = true;
+                    return 
+                }
+                colors[u[0]][u[1]] = uColor;
+                for (let m = 0; m < 3; m++) {
+                    if (uColor[m] > 250 || uColor[m] <3) {
+                        uColorDir[m] = !uColorDir[m]
+                    }
+                    uColorDir[m] ? uColor[m]++:uColor[m]--;
+                }
+                algorithmFor = true
+                algorithmWhile = false;
+            } else if (algorithmFor) {
+                if (fastAlgorithm) {
+                    relaxFast()
+                } else {
+                    relaxSlow()
+                }
+            }
+        } else {
+            currentAlgorithm = null;
+        }
+    }
+}
+
+function storeReturnPath() {
+    let parent = [...par]
+    while (parent[0] != start[0] || parent[1] != start[1]) {
+        colors[parent[0]][parent[1]] = returnPathColor
+        returnPath.push(parent)
+        parent = pi[parent[0]][parent[1]]
     }
 }
 
@@ -60,20 +68,17 @@ function startBfs() {
     bfs = true
 }
 
-
 function finishAlgorithm() {
     let done = true
     if (par[0] != start[0] || par[1] != start[1]) {
-        colors[par[0]][par[1]] = [255, 255, 25];
+        colors[par[0]][par[1]] = [250,220,105]
+        returnPath.push(par)
         par = pi[par[0]][par[1]]
         done = false;
     }
-    colors[par[0]][par[1]] = [255, 255, 255];
     if (done) {
         algorithmDone = true
         finishingAlgorithm = false;
-        colors[end[0]][end[1]] = endColor;
-        colors[start[0]][start[1]] = startColor
     }
 }
 
@@ -245,8 +250,8 @@ function visitAdjacents() {
         case 4:
             if (blocked[u[0] + 1][u[1] + 1]) { break; }
             colors[u[0] + 1][u[1] + 1] = [rVar, gVar, bVar];
-            if (pq[u[0] + 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)) {
-                pq[u[0] + 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)
+            if (pq[u[0] + 1][u[1] + 1] > (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)) {
+                pq[u[0] + 1][u[1] + 1] = (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]+1][u[1]+1] ? mountainSlopes[u[0]+1][u[1]+1]/mountainWeight : 0)
                 pi[u[0] + 1][u[1] + 1] = [u[0], u[1]]
                 if (dijkstra) {
                     priorityQueue.enqueue([u[0]+1, u[1]+1, pq[u[0]+1][u[1]+1]])
@@ -263,8 +268,8 @@ function visitAdjacents() {
         case 5:
             if (blocked[u[0] - 1][u[1] - 1]) { break; }
             colors[u[0] - 1][u[1] - 1] = [rVar, gVar, bVar];
-            if (pq[u[0] - 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)) {
-                pq[u[0] - 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)
+            if (pq[u[0] - 1][u[1] - 1] > (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)) {
+                pq[u[0] - 1][u[1] - 1] = (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]-1][u[1]-1] ? mountainSlopes[u[0]-1][u[1]-1]/mountainWeight: 0)
                 pi[u[0] - 1][u[1] - 1] = [u[0], u[1]]
                 if (dijkstra) {
                     priorityQueue.enqueue([u[0]-1, u[1]-1, pq[u[0]-1][u[1]-1]])
@@ -281,8 +286,8 @@ function visitAdjacents() {
         case 6:
             if (blocked[u[0] - 1][u[1] + 1]) { break; }
             colors[u[0] - 1][u[1] + 1] = [rVar, gVar, bVar];
-            if (pq[u[0] - 1][u[1] + 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)) {
-                pq[u[0] - 1][u[1] + 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)
+            if (pq[u[0] - 1][u[1] + 1] > (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)) {
+                pq[u[0] - 1][u[1] + 1] = (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]-1][u[1]+1] ? mountainSlopes[u[0]-1][u[1]+1]/mountainWeight : 0)
                 pi[u[0] - 1][u[1] + 1] = [u[0], u[1]]
                 if (dijkstra) {
                     priorityQueue.enqueue([u[0]-1, u[1]+1, pq[u[0]-1][u[1]+1]])
@@ -299,8 +304,8 @@ function visitAdjacents() {
         case 7:
             if (blocked[u[0] + 1][u[1] - 1]) { break; }
             colors[u[0] + 1][u[1] - 1] = [rVar, gVar, bVar];
-            if (pq[u[0] + 1][u[1] - 1] > (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)) {
-                pq[u[0] + 1][u[1] - 1] = (pq[u[0]][u[1]]) + 1.4  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)
+            if (pq[u[0] + 1][u[1] - 1] > (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)) {
+                pq[u[0] + 1][u[1] - 1] = (pq[u[0]][u[1]]) + srtwo  + (mountained[u[0]+1][u[1]-1] ? mountainSlopes[u[0]+1][u[1]-1]/mountainWeight : 0)
                 pi[u[0] + 1][u[1] - 1] = [u[0], u[1]]
                 if (dijkstra) {
                     priorityQueue.enqueue([u[0]+1, u[1]-1, pq[u[0]+1][u[1]-1]])
